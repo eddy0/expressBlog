@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="login.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: -apple-system, Helvetica, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body{
+            font: inherit;
+            color: inherit;
+            font-size: 18px;
+            background-color: #D7EFEE;
+        }
+
+        ul, li{
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .wd-login-box{
+            box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+        }
+
+        .wd-login-box{
+            background-color: #D7EFEE;
+
+        }
+
+        .wd-login-title{
+            font-size: 27px;
+            font-weight: 600;
+            color: #2e2e2e;
+            margin-bottom: 30px;
+        }
+
+    </style>
+    <title>Document</title>
+</head>
+<body>
+<div class="wd-login-container alert-show">
+    <div class="wd-login-overlay"></div>
+    <div class="wd-login-box">
+        <div class="wd-login-container">
+            <div class="wd-login-title">
+                Welcome to Join us
+            </div>
+            <div class="wd-login-inputWrapper">
+                <form action="/signup" method="post" >
+                    <input class="wd-login-input login-username" type="text" placeholder="username">
+                    <input class="wd-login-input login-password" type="password" placeholder="password">
+                </form>
+            </div>
+            <div class="wd-login-btns">
+                <button class="wd-login-btn wd-alert-confirm">Sign Up</button>
+            </div>
+            <div class="wd-login-signup">
+                <span>Already has account? </span>
+                <a href="/signin">Sign in.</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="wd.js"></script>
+
+
+
+
+</body>
+</html>

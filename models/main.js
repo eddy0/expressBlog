@@ -32,8 +32,7 @@ class Model{
     constructor(form) {
         this.createdTime = form.createTime || Date.now()
         this.updatedTime = form.updatedTime || Date.now()
-        this._id = form._id || undefined
-        this.name = form.name || 'guest'
+        this._id = Number(form._id) || undefined
         this.activated = form.activated || true
     }
 
@@ -45,12 +44,16 @@ class Model{
     }
 
     static _newFromMapper(m) {
+            return new this(m)
+    }
+
+    static _filterMapper(m) {
         if (m.activated){
             return new this(m)
         }
     }
 
-    static all() {
+    static _all() {
         const path = this._dbPath()
         const models = load(path)
         let ms = models.map( (m) => {
@@ -59,8 +62,18 @@ class Model{
         return ms
     }
 
+    static all() {
+        const path = this._dbPath()
+        const models = load(path)
+        let ms = models.map( (m) => {
+            return this._filterMapper(m)
+        })
+        return ms
+    }
+
     static create(form={}, args={}) {
         let m = new this(form)
+        log('mm', m, form)
         Object.keys(args).forEach( (k) => {
             m[k] = args[k]
         })
@@ -71,7 +84,7 @@ class Model{
     save() {
         // 修改数据要保存  新增数据也要保存
         const cls = this.constructor
-        const models = cls.all()
+        const models = cls._all()
         if (this._id === undefined) {
             let len  = models.length
             if (len > 0) {
@@ -135,6 +148,8 @@ class Model{
 
 }
 
+module.exports = Model
+
 
 const test = () => {
     let form = {
@@ -144,12 +159,15 @@ const test = () => {
     // let m = Model.create(form)
     // m.name='gua'
     // m.save()
-    // let m = Model.get(3)
+    // let m = Model.get(1)
     // m.activated = false
     // m.save()
-    // let s = Model.get(3)
-    let s = Model.findBy('edd', 'e')
-    log(s)
+    // let s = Model.get(5)
+    // s.name='osok'
+    // let s = Model.findBy('edd', 'e')
+    // m.save()
+    // log(m)
+    // log(s)
 
 }
 

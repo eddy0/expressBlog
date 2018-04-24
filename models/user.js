@@ -2,8 +2,8 @@ const Model = require('./main.js')
 const crypto = require('crypto')
 const { log } = require('../utils.js')
 
-class User extends Model{
-    constructor(form={}){
+class User extends Model {
+    constructor(form={}) {
         super(form)
         this.username = form.username || ''
         this.email = form.email || ''
@@ -35,7 +35,6 @@ class User extends Model{
         const u = this.findBy('username', username)
         log(u, pwd)
         return u !== null && u.password === pwd
-
     }
 
     static register(form) {

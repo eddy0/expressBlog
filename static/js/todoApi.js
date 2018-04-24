@@ -11,7 +11,6 @@ remove(id)
 
 */
 
-
 class Ajax {
     constructor() {
         this.baseUrl = 'https://localhost:6000/api'

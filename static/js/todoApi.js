@@ -13,7 +13,7 @@ remove(id)
 
 class Ajax {
     constructor() {
-        this.baseUrl = 'https://localhost:6000/api'
+        this.baseUrl = 'http://localhost:3000'
     }
 
     ajaxpro({method, path, headers, data}) {
@@ -28,7 +28,8 @@ class Ajax {
             r.setRequestHeader('Content-Type', headers)
             r.onreadystatechange = () => {
                 if(r.readyState === 4) {
-                    resolve(r.response)
+                    let res = JSON.parse(r.response)
+                    resolve(res)
                 }
             }
             r.onerror = () => {
@@ -36,13 +37,11 @@ class Ajax {
             }
 
             data = JSON.stringify(data)
+            log('data', data, typeof data)
             r.send(data)
         })
         return promise
     }
-}
-
-class TodoApi extends Ajax {
 
     get(path, headers) {
         let method = 'GET'
@@ -55,12 +54,49 @@ class TodoApi extends Ajax {
 
     post(path, data, headers) {
         let method = 'POST'
+
         return this.ajaxpro({
             method: method,
             path: path,
             data: data,
             headers: headers,
         })
+    }
+}
+
+class TodoApi extends Ajax {
+    constructor() {
+        super()
+        this.baseUrl = super.baseUrl + '/api'
+    }
+    all() {
+        let path = '/all'
+        return this.get(path)
+    }
+
+    add(data) {
+        let path = '/add'
+
+        return this.post(path, data)
+    }
+
+    update(id, data) {
+        let path = '/update/' + String(id)
+        return this.post(path, data)
+    }
+
+    remove(id) {
+        let path = '/delete/' + String(id)
+        return this.get(path)
+    }
+}
+
+
+
+class TopicApi extends Ajax {
+    constructor() {
+        super()
+        this.baseUrl = this.baseUrl + '/api'
     }
 
     all() {
@@ -69,7 +105,7 @@ class TodoApi extends Ajax {
     }
 
     add(data) {
-        let path = '/add'
+        let path = '/topic/new'
         return this.post(path, data)
     }
 

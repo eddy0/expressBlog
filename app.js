@@ -27,6 +27,9 @@ const configTemplate = () => {
 const registerRouter = () => {
     const index = require('./routes/index.js')
     app.use('/', index)
+
+    const apiTopic = require('./routes/apiTopic.js')
+    app.use('/api/topic/', apiTopic)
 }
 
 const configApp = () => {

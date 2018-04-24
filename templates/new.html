@@ -29,10 +29,10 @@
 
 
 
-    <link rel="stylesheet" href="new.css">
-    <link rel="stylesheet" href="../card.css">
-    <link rel="stylesheet" href="/static/css/css/card.css">
-    <link rel="stylesheet" href="/static/css/css/new.css">
+    <!--<link rel="stylesheet" href="new.css">-->
+    <!--<link rel="stylesheet" href="../card.css">-->
+    <link rel="stylesheet" href="/static/css/index/card.css">
+    <link rel="stylesheet" href="/static/css/topic/new.css">
 
 
 </head>
@@ -68,8 +68,9 @@
     <div class="tag-content">
         <span class="tag-header">Select A Tag:</span>
         <div class="tag-list">
-            <span class="tag-item front-end ">front-end</span>
-            <span class="tag-item back-end">back-end</span>
+            {% for tag in tags %}
+            <span class="tag-item {{ tag.name }} "> {{ tag.name }}</span>
+            {% endfor %}
         </div>
 
 
@@ -83,8 +84,8 @@
         <button class="wd-topic-btn wd-topic-submit ">Submit</button>
         <!--<button class="wd-topic-btn wd-topic-save  ">Save</button>-->
     </div>
-<span class="wd-message-box"></span>
 </div>
+<div class="wd-alert-container"></div>
 
 
 <!--<div class="main">-->
@@ -124,8 +125,10 @@
     <!--})();-->
 <!--</script>-->
 
-<script src="../wd.js"></script>
+<!--<script src="../wd.js"></script>-->
 <script src="/static/js/wd.js"></script>
+<script src="/static/js/todoApi.js"></script>
+<script src="/static/js/alertAction.js"></script>
 
 <script>
 
@@ -201,10 +204,22 @@
         })
     }
 
-    const actionsSubmit = (element, content) => {
+    const actionsSubmit = (element, data) => {
         let cls = element.classList
-        if (cls.contains('.wd-topic-submit')){
-            console.log(content)
+        if (cls.contains('wd-topic-submit')){
+            data.uid = 1
+            let api = new TopicApi()
+            api.add(data).then( (r) => {
+                if (r.success === true) {
+                    log('success')
+                    new AlertNotice({
+                        title:'success',
+                        notice: 'add successfully'
+                    }).on( () => {
+                        window.location.href='http://localhost:3000/'
+                    })
+                }
+            })
         }
     }
 

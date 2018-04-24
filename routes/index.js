@@ -6,8 +6,6 @@ const Tag = require('../models/tag.js')
 
 const router = express.Router()
 
-
-
 router.get('/', (req, res) => {
     let topics = Topic.all()
     topics = topics.map( (topic) => {
@@ -15,13 +13,46 @@ router.get('/', (req, res) => {
         topic.author = author
         return topic
     })
-    tags = Tag.all()
+    let tags = Tag.all()
     args = {
         topics: topics,
         tags: tags,
     }
     res.render('index.html', args)
 })
+
+
+router.get('/topic/detail/:id', (req, res) => {
+    let id = Number(req.query.id)
+    let topic = Topic.get(id)
+    let tags = Tag.all()
+
+    if (topic !== null){
+        args = {
+            topics: topics,
+            tags: tags,
+        }
+        res.render('detail.html', args)
+    } else{
+        res.status(404).send('not found')
+    }
+})
+
+router.get('/topic/new', (req, res) => {
+    let tags = Tag.all()
+    let args = {
+        tags: tags,
+    }
+    res.render('new.html', args)
+})
+
+
+router.post('/new', (req, res) => {
+    const form = req.body
+})
+
+
+
 
 
 module.exports = router

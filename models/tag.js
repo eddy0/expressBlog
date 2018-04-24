@@ -6,10 +6,12 @@ const { log, random } = require('../utils.js')
 class Tags extends Model {
     constructor(form={}) {
         super(form)
-        this.name = form.name || ''
+        this.name = form.name || 'front-end'
     }
 
 }
+
+module.exports = Tags
 
 
 const test = () => {
@@ -31,4 +33,4 @@ const test = () => {
     log(t)
 }
 
-test()
+// test()

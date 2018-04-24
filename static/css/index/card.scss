@@ -30,6 +30,8 @@ $dark-grey:#1e1e1e;
 $light-line: #e5e5e5;
 $blue: rgb(43, 120, 193);
 
+
+
 .front-end {
   background-color: $front-end;
   &:hover{
@@ -43,6 +45,23 @@ $blue: rgb(43, 120, 193);
     background-color:darken($back-end, 15%)
   }
 }
+
+.block-chain {
+  background-color: lighten($danger, 10%);
+  &:hover{
+    background-color:$danger;
+  }
+}
+
+.algorithm {
+  background-color: $primary;
+  &:hover{
+    background-color:darken($primary, 15%);
+  }
+}
+
+
+
 
 .front-end.selected{
   background-color: darken($front-end, 10%);

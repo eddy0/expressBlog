@@ -7,19 +7,20 @@ class Topic extends Model {
     constructor(form={}) {
         super(form)
         this.title = form.title || ''
-        this.tagsId = form.tagsId || []
+        this.tags = form.tags || []
         this.content = form.content || ''
         this.views = form.views || 0
         this.stars = form.stars || 0
         this.comments = form.comments || 0
         this.like = form.like || 0
         this.uid = form.uid || -1
+        this.brief = form.brief || this.content
     }
 
     static create(form) {
         const { content } = form
         let len = random()
-        form.brief = content.slice(0, len)
+        form.brief = content.slice(0, len) + '...'
         let m = super.create(form)
         return m
     }
@@ -68,16 +69,16 @@ class Topic extends Model {
         const u = User.get(uid)
         return u
     }
-
 }
 
+module.exports = Topic
 
 const test = () => {
     let form = {
         title: 'how to write a frong end document',
-        tagsId: [1, 2],
-        content: 'how to write a frodfafdddddddfadfadfng end dofaadfcument<br>teststsssfetestesrewaweawfawfe<br>sdfhow to wrihow to wrihow to wrihow to wrihow to wrihow to wrihow to wrihow to wrihow to wrihow to wrihow to wrihow to wrihow to wri',
-        uid: 5,
+        tags: ['front-end', 'back-end'],
+        content: 'how to wrw to wrihow to wrihow to wrihow to wrihow to wrihow to wrihow to wri',
+        uid: 1,
     }
     // let t = Topic.all()
     let t = Topic.create(form)
@@ -94,4 +95,4 @@ const test = () => {
     log(t)
 }
 
-test()
+// test()

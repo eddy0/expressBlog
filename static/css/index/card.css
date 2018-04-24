@@ -8,6 +8,16 @@
   .back-end:hover {
     background-color: #d71e35; }
 
+.block-chain {
+  background-color: #ffa084; }
+  .block-chain:hover {
+    background-color: #FF7851; }
+
+.algorithm {
+  background-color: #78C2AD; }
+  .algorithm:hover {
+    background-color: #4aa48a; }
+
 .front-end.selected {
   background-color: #2093b1; }
 

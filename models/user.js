@@ -52,6 +52,7 @@ class User extends Model {
     }
 }
 
+module.exports = User
 
 const test = () => {
     let form = {

@@ -1,3 +1,6 @@
+const { log } = require('./utils.js')
+
+
 const parseTime = (date) => {
     let ms = Date.now() - new Date(date).getTime()
     // 误差修正
@@ -11,6 +14,8 @@ const parseTime = (date) => {
     const day = parseInt(hour / 24)
     const month = parseInt(day / 30)
     const year = parseInt(day / 365)
+    log('index',   Date.now() , date)
+
     return [year, month, day, hour, minute]
 }
 
@@ -28,6 +33,7 @@ const formattedTime = (date) => {
         return t > 0
     })
     if (index === -1){
+
         return '刚刚'
     } else{
         let t = times[index]

@@ -30,7 +30,7 @@ const saveFile = (path, data) => {
 
 class Model{
     constructor(form) {
-        this.createdTime = form.createTime || Date.now()
+        this.createdTime = form.createdTime || Date.now()
         this.updatedTime = form.updatedTime || Date.now()
         this._id = Number(form._id) || undefined
         this.activated = form.activated || true
@@ -73,7 +73,6 @@ class Model{
 
     static create(form={}, args={}) {
         let m = new this(form)
-        log('mm', m, form)
         Object.keys(args).forEach( (k) => {
             m[k] = args[k]
         })
@@ -133,7 +132,6 @@ class Model{
 
     static remove(id) {
         let m = this.get(id)
-        log(m)
         if(m !== null) {
             m.activated = false
             m.save()

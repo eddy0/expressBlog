@@ -205,7 +205,6 @@
 
             {% for t in topics %}
 
-            {{ t }}
 
             <div class="wd-card">
             <span class="card-remove">
@@ -218,15 +217,15 @@
                 </div>
 
                 <div class="feed-author">
-                    <a href="#" class="author-avatar">
+                    <a href="/user/{{t.author.uid}}" class="author-avatar">
                         <img src="https://vip.kybmig.cc/uploads/avatar/default.gif" alt=""/>
                     </a>
                     <div class="author-detail">
                         <div class="author-name">
-                            <a href="#"> {{ t.username }}</a>
+                            <a href="/user/{{t.author.uid}}"> {{ t.author.username }}</a>
                         </div>
                         <span class="author-note">
-                        {{ t.note }}
+                        {{ t.author.note }}
                     </span>
                     </div>
                 </div>
@@ -246,21 +245,27 @@
                     </a>
                 </div>
 
-                <div class="card-action">
-                <span class="topic-tag {{ t.tag }} front-end">
-                    {{ t.tag }}
+            <div class="tag-list">
+                {% for tag in t.tags %}
+                <span class="topic-tag {{ tag }}">
+                    {{ tag }}
                 </span>
+                {% endfor %}
+            </div>
+
+
+            <div class="card-action">
 
                     <span class="action-star">
                     <i class='fas fa-star icon-font icon-star'></i>
                     <span class="star-count">
-                        233&nbsp;Stars
+                        {{t.stars}}&nbsp;Stars
                     </span>
                 </span>
 
                     <span class="action-comments">
                     <i class='fas fa-comments icon-font icon-comments'></i>
-                    <span class="comments-count">23&nbsp;Comments</span></span>
+                    <span class="comments-count">{{t.comments}}&nbsp;Comments</span></span>
 
                     <span class="action-like">
                     <i class='fas fa-heart icon-font icon-like'></i>
@@ -289,26 +294,14 @@
                     <span class="tag-title">Hot Tag</span>
                 </div>
                 <ul class="tag-list ">
-                    <li class="tag-item front-end">
-                        <span>front-end</span>
+                    {% for tag in tags %}
+                    <li class="tag-item  {{ tag.name }}">
+                        <span> {{ tag.name }} </span>
                     </li>
 
-                    <li class="tag-item back-end">
-                        <span >front-end</span>
-                    </li>
+                    {% endfor %}
 
-                    <li class="tag-item back-end">
-                        <span >front-end</span>
-                    </li>
-                    <li class="tag-item back-end">
-                        <span >front-end</span>
-                    </li>
-                    <li class="tag-item back-end">
-                        <span >front-end</span>
-                    </li>
-                    <li class="tag-item back-end">
-                        <span >front-end</span>
-                    </li>
+
                 </ul>
 
             </div>

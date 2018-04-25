@@ -1,9 +1,21 @@
+
+
+
 class Alert {
-    constructor({wrapper}) {
-        this.wrapper = {container}
+    constructor(args) {
+        let { container, title, input, placeholder, notice } = args
+        this.wrapper = container
+        this.title = title
+        this.input = input
+        this.placeholder = placeholder
+        this.notice = notice
         this.init()
         this.container = this.e(`.${this.wrapper}`)
         this.action = undefined
+    }
+
+    static create(args) {
+        return new this(args)
     }
 
     on(event){
@@ -14,19 +26,23 @@ class Alert {
     fire(...args) {
         if (this.action !== undefined) {
             this.action.apply(this, args)
+            this.clearContainer()
         }
     }
 
     e(sel, element=document) {
-        return element.querySelector(sel)
-    }
-
-    es(sel, element=document){
-        return element.querySelectorAll(sel)
+        let tags = element.querySelectorAll(sel)
+        if (tags.length <= 0){
+            return null
+        } else if (tags.length === 1){
+            return tags[0]
+        } else {
+            return tags
+        }
     }
 
     bindAll(selector, eventName, callback){
-        const element = this.es(selector)
+        const element = this.e(selector)
         for (let i = 0; i < element.length; i++ ) {
             let tag = element[i]
             tag.addEventListener(eventName, (event) => {
@@ -212,10 +228,6 @@ class Alert {
     }
 
     initframe(){
-        let container = this.container()
-        if (container !== null){
-            container.remove()
-        }
         let t = `
             <div class="${this.wrapper} alert-show">
                 <div class="wd-alert-overlay"></div>
@@ -233,22 +245,20 @@ class Alert {
         }
     }
 
-    container() {
-        return this.e(`.${this.wrapper}`)
-    }
-
     insertHtml(t){
         let box = this.e('.wd-alert-box', this.container() )
         box.innerHTML = ''
         this.container.insertAdjacentHTML('beforeend', t)
+    }
+
+    clearContainer() {
+        this.wrapper.remove()
     }
 }
 
 class AlertNotice extends Alert {
     constructor(args) {
         super()
-        this.title = args.title || ''
-        this.notice = args.notice || ''
         this.appendHtml()
         this.actionAlert()
     }
@@ -287,8 +297,6 @@ class AlertNotice extends Alert {
 class AlertConfirm extends Alert {
     constructor(args) {
         super()
-        this.title = args.title || ''
-        this.notice = args.notice || ''
         this.appendHtml()
         this.actionAlert()
     }
@@ -331,9 +339,6 @@ class AlertConfirm extends Alert {
 class AlertPrompt extends Alert {
     constructor(args) {
         super()
-        this.title = args.title || ''
-        this.placeholder = args.placeholder || ''
-        this.callback = args.callback || new Function()
         this.appendHtml()
         this.actionAlert()
     }

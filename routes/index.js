@@ -21,15 +21,23 @@ router.get('/', (req, res) => {
     res.render('index.html', args)
 })
 
+router.get('/topic/new', (req, res) => {
+    let tags = Tag.all()
+    let args = {
+        tags: tags,
+    }
+    res.render('new.html', args)
+})
 
-router.get('/topic/detail/:id', (req, res) => {
-    let id = Number(req.query.id)
+
+
+router.get('/topic/:id', (req, res) => {
+    let id = Number(req.params.id)
     let topic = Topic.get(id)
     let tags = Tag.all()
-
     if (topic !== null){
         args = {
-            topics: topics,
+            topics: topic,
             tags: tags,
         }
         res.render('detail.html', args)
@@ -38,13 +46,6 @@ router.get('/topic/detail/:id', (req, res) => {
     }
 })
 
-router.get('/topic/new', (req, res) => {
-    let tags = Tag.all()
-    let args = {
-        tags: tags,
-    }
-    res.render('new.html', args)
-})
 
 
 router.post('/new', (req, res) => {

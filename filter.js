@@ -14,8 +14,6 @@ const parseTime = (date) => {
     const day = parseInt(hour / 24)
     const month = parseInt(day / 30)
     const year = parseInt(day / 365)
-    log('index',   Date.now() , date)
-
     return [year, month, day, hour, minute]
 }
 

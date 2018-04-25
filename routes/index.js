@@ -33,12 +33,15 @@ router.get('/topic/new', (req, res) => {
 
 router.get('/topic/:id', (req, res) => {
     let id = Number(req.params.id)
-    let topic = Topic.get(id)
+    let topic = Topic.detail(id)
+    let author = User.get(topic.uid)
+    log('author', author)
     let tags = Tag.all()
     if (topic !== null){
         args = {
-            topics: topic,
+            topic: topic,
             tags: tags,
+            author: author,
         }
         res.render('detail.html', args)
     } else{
@@ -48,9 +51,17 @@ router.get('/topic/:id', (req, res) => {
 
 
 
-router.post('/new', (req, res) => {
-    const form = req.body
+router.get('/signup', (req, res) => {
+
+    res.render('signup.html')
 })
+
+
+router.get('/signin', (req, res) => {
+    res.render('signin.html')
+})
+
+
 
 
 

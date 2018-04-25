@@ -43,10 +43,7 @@ center, header > .header-container {
     margin-right: 30px; }
 
   .input-wrapper input {
-    width: 300px; }
-
-  .header-container > .header-info {
-    width: 151px; } }
+    width: 300px; } }
 @media (min-width: 760px) and (max-width: 1011px) {
   header > .header-container {
     width: 700px; }

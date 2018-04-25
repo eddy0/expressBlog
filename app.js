@@ -22,6 +22,12 @@ const configTemplate = () => {
         let f = formattedTime(date)
         return f
     })
+
+    env.addFilter('calendarDate', (date) => {
+        let { calendarDate } = require('./filter.js')
+        let f = calendarDate(date)
+        return f
+    })
 }
 
 const registerRouter = () => {

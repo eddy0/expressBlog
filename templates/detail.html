@@ -23,7 +23,7 @@
 <header>
     <div class="header-container">
         <div class="header-logo">
-            <a href="#">
+            <a href="/">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="#004D40" height="36" viewBox="0 0 24 24" width="36"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
             </a>
         </div>
@@ -38,7 +38,7 @@
                 <div class="header-popover" tabindex="0" >
                     <ul class="wd-popover-list">
                         <li class="item" data-action="profile">
-                            <a href="/profile/">
+                            <a href="/profile/{{ topic.uid }}">
                                 <svg viewBox="0 0 20 20" width="14" height="16" aria-hidden="true" style="height: 16px; width: 14px;">
                                     <g>
                                         <path d="M13.4170937,10.9231839 C13.0412306,11.5757324 12.5795351,12.204074 12.6542924,12.7864225 C12.9457074,15.059449 18.2164534,14.5560766 19.4340179,15.8344151 C20,16.4286478 20,16.4978969 20,19.9978966 C13.3887136,19.9271077 6.63736785,19.9978966 0,19.9978966 C0.0272309069,16.4978969 0,16.5202878 0.620443914,15.8344151 C1.92305664,14.3944356 7.20116276,15.1185829 7.40016946,12.7013525 C7.44516228,12.1563518 7.02015319,11.5871442 6.63736814,10.9228381 C4.51128441,7.2323256 3.69679769,4.67956187e-11 10,9.32587341e-14 C16.3032023,-4.66091013e-11 15.4216968,7.4429255 13.4170937,10.9231839 Z"></path>
@@ -89,7 +89,7 @@
 
 <section class="main">
     <div class="feed-author">
-        <a href="#" class="author-avatar">
+        <a href="/profile/{{ topic.uid }}" class="author-avatar">
             <img src="https://vip.kybmig.cc/uploads/avatar/default.gif" alt=""/>
         </a>
         <div class="author-detail">
@@ -97,7 +97,7 @@
                         <a href="/user/{{ t.uid }}">瓜瓜</a>
                     </span>
             <span class="author-note">
-                        这是一个note
+                       {{ author.note }}
                     </span>
         </div>
     </div>
@@ -106,65 +106,29 @@
         <!--<input type="file" class="title-img">-->
 
         <h2 class="content-title" >
-            How to Write a Front-end Article 如何写好一个前端前端前端
+            {{topic.title}}
         </h2>
 
         <div class="content-info">
-            <span class="feed-views">2333 views</span>
-
+            <span class="feed-views">{{ topic.views }} views</span>
         <span class="feed-date">
-                published by 2018-06-03
+                published by {{topic.createdTime | calendarDate() }}
             </span>
         </div>
         <div class="content-detail">
-            <p>好的这是一个东西,好的这是一个东西.好的这是一个东西,好的这是一个东西.好的这是一个东西,好的这是一个东西.好的这是一个东西,好的这是一个东西.好的这是一个东西,好的这是一个东西.好的这是一个东西,好的这是一个东西.好的这是一个东西,好的这是一个东西.好的这是一个东西,好的这是一个东西.</p>
-            <p>
-                this is very goodi
-                好的这是一个东西
-                好的这是一个东西
-                好的这是一个东的这是一个东西
-                好的这是一个东西
-                好的这是一个东西
-                好的这是一个东西
-                好的这是一个东的这是一个东西
-                好的这是一个东西
-                好的这是一个东西
-            </p>
-            <pre name="ff6b" id="ff6b" class="graf graf--pre graf-after--pre">
-                export default ({ body, title, initialState }) =&gt; {<br>  return `<br>    &lt;!DOCTYPE html&gt;<br>    &lt;html&gt;<br>      &lt;head&gt;<br>        &lt;script&gt;window.__APP_INITIAL_STATE__ = ${initialState}&lt;/script&gt;<br>        &lt;title&gt;${title}&lt;/title&gt;<br>        &lt;link rel="stylesheet" href="/assets/index.css" /&gt;<br>      &lt;/head&gt;<br>      <br>      &lt;body&gt;<br>        &lt;div id="root"&gt;${body}&lt;/div&gt;<br>      &lt;/body&gt;<br>      <br>      &lt;script src="/assets/bundle.js"&gt;&lt;/script&gt;<br>    &lt;/html&gt;<br>  `;<br>};
-            </pre>
-            <p>
-                this is very goodi
-                好的这是一个东西
-                好的这是一个东西
-                好的这是一个东的这是一个东西
-                好的这是一个东西
-                好的这是一个东西
-                好的这是一个东西
-                好的这是一个东的这是一个东西
-                好的这是一个东西
-                好的这是一个东西
-            </p>
+          {{ topic.content }}
         </div>
 
 
         <div class="content-tag">
             <ul class="tag-list">
+                {% for tag in topic %}
                 <li class="tag-item">
                     <a href="#">
-                        front-end
+                        {{ tag }}
                     </a>
                 </li>
-                <li class="tag-item">
-                    <a href="#">
-                        front-end
-                    </a>
-                </li>
-                <li class="tag-item">
-                    <a href="#">
-                        front-end
-                    </a>
-                </li>
+                {% endfor %}
 
             </ul>
 

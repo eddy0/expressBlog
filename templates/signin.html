@@ -50,16 +50,20 @@
     <div class="wd-login-title">
         Welcome Back
     </div>
+    <form action="/signin" method="post" id="signin">
+
     <div class="wd-login-inputWrapper">
-        <form action="/signin" method="post" >
-        <input class="wd-login-input login-username" type="text" placeholder="username">
-        <input class="wd-login-input login-password" type="password" placeholder="password">
-        </form>
+        <input class="wd-login-input login-username" name="username" type="text" placeholder="username">
+        <input class="wd-login-input login-password" name="password" type="password" placeholder="password">
     </div>
     <div class="wd-login-btns">
-        <button class="wd-login-btn wd-login-submit">Sign In</button>
-
+        <input  name="nextUrl" type="text" value="{{ nextUrl}}" hidden style="display: none">
+        <button type="submit" class="wd-login-btn wd-login-submit">
+            Sign In
+        </button>
     </div>
+    </form>
+
     <div class="wd-login-signup">
         <span>No account? </span>
         <a href="/signup">Create one.</a>

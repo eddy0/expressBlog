@@ -3,6 +3,7 @@ const express = require('express')
 const Topic = require('../models/topic.js')
 const User = require('../models/user.js')
 const Tag = require('../models/tag.js')
+const { currentUser, loginRequired } = require('./main.js')
 
 const router = express.Router()
 
@@ -14,9 +15,12 @@ router.get('/', (req, res) => {
         return topic
     })
     let tags = Tag.all()
+    let u = currentUser(req)
+    log('u', u)
     args = {
         topics: topics,
         tags: tags,
+        user: u
     }
     res.render('index.html', args)
 })
@@ -31,7 +35,7 @@ router.get('/topic/new', (req, res) => {
 
 
 
-router.get('/topic/:id', (req, res) => {
+router.get('/topic/:id',  loginRequired, (req, res) => {
     let id = Number(req.params.id)
     let topic = Topic.detail(id)
     let author = User.get(topic.uid)
@@ -58,7 +62,33 @@ router.get('/signup', (req, res) => {
 
 
 router.get('/signin', (req, res) => {
-    res.render('signin.html')
+    let nextUrl = req.query.nextUrl
+    let args = {
+        nextUrl: nextUrl || ''
+    }
+    res.render('signin.html', args )
+})
+
+router.post('/signin', (req, res) => {
+    const form = req.body
+    log('form', form)
+    let valid = User.validLogin(form)
+    log('valid')
+    if (valid) {
+        let u = User.findBy('username', form.username)
+        req.session.uid = u._id
+        let nextUrl = form.nextUrl
+        res.redirect(nextUrl)
+    } else {
+        req.session.flash = {
+            message: 'wrong message'
+        }
+    }
+})
+
+router.get('/logout', (req, res) => {
+    req.session = null
+    res.redirect('/')
 })
 
 

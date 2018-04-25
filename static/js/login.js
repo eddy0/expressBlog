@@ -259,7 +259,7 @@ let logoutTemplate = () => {
     const t =
         `
         <div class="header-login">
-                <a href="#" class="signIn" data-action="signIn">Sign in</a>
+                <a href="javascript:;" class="signIn" data-action="signIn">Sign in</a>
                 <a href="/signup" class="signUp">Get Started</a>
             </div>
         `

@@ -10,7 +10,7 @@ class User extends Model {
         this.password = form.password || ''
         this.note = form.note || 'nothing is noting'
         this.avatar = form.avatar || 'default.img'
-        this.role = 2
+        this.role = form.role || 2
     }
 
     static create(form) {
@@ -30,7 +30,6 @@ class User extends Model {
 
     static validLogin(form) {
         const {username, email, password} = form
-        log('password', password)
         const pwd = this.saltedPassword(password)
         const u = this.findBy('username', username)
         log(u, pwd)
@@ -49,6 +48,17 @@ class User extends Model {
         } else {
             return null
         }
+    }
+
+    static guest() {
+        let form = {
+            _id: -1,
+            role: -1,
+            username: 'guest',
+            note: 'please join us'
+        }
+        let m = User.create(form)
+        return m
     }
 }
 

@@ -3,14 +3,14 @@
 
 class Alert {
     constructor(args) {
-        let { container, title, input, placeholder, notice } = args
-        this.wrapper = container
+        let { wrapperClass, title, input, placeholder, notice } = args
+        this.wrapperClass = wrapperClass
         this.title = title
         this.input = input
         this.placeholder = placeholder
         this.notice = notice
         this.init()
-        this.container = this.e(`.${this.wrapper}`)
+        this.wrapper = this.e(`.${this.wrapperClass}`)
         this.action = undefined
     }
 
@@ -26,8 +26,12 @@ class Alert {
     fire(...args) {
         if (this.action !== undefined) {
             this.action.apply(this, args)
-            this.clearContainer()
+            this.clear()
         }
+    }
+
+    clear() {
+        this.wrapper.remove()
     }
 
     e(sel, element=document) {
@@ -62,32 +66,31 @@ class Alert {
     }
 
     cssTemplate() {
-        let w = this.wrapper
-        const t = `
-          <style id="id-style-alert" >
-            .${w}, .${w} * {
+        const t = (`
+          <style id="_id-style-alert" >
+            ._wd-alert-wrapper, .__wd-alert-wrapper * {
                 margin: 0;
                 padding: 0;
                 font: inherit;
                 color: inherit;
                 box-sizing: border-box;
             }
-            .${w}{
+            ._wd-alert-wrapper{
                 font-size: 14px;
                 font-family: Helvetica,Arial,sans-serif;
             }
-            .${w} a{
+            ._wd-alert-wrapper a{
                 text-decoration: none;
             }
-            .${w} img{
+            ._wd-alert-wrapper img{
                 vertical-align: top;
             }
-            .${w}.alert-show div{
+            ._wd-alert-wrapper.alert-show div{
                 display: block;
                 opacity: 1
             }
 
-            .${w} .wd-alert-overlay{
+            ._wd-alert-wrapper .wd-alert-overlay{
                 display: none;
                 opacity: 0;
                 background-color: rgba(255,255,255, 0.6);
@@ -98,7 +101,7 @@ class Alert {
                 position: absolute;
                 z-index: 998;
             }
-            .${w} .wd-alert-box{
+            ._wd-alert-wrapper .wd-alert-box{
                 display: none;
                 width: 300px;
                 background-color: #fff;
@@ -110,10 +113,10 @@ class Alert {
                 text-align: center;
                 transform: translate(-50%, -50%);
                 -webkit-transform: translate(-50%, -50%);
-                animation: wdAlertShow 0.3s;
+                animation: _wdAlertShow 0.3s;
                 z-index: 999;
             }
-            @keyframes wdAlertShow {
+            @keyframes _wdAlertShow {
                 0% {
                     -webkit-transform:translate(-50%, -50%)  scale(.7);
                     transform:translate(-50%, -50%)  scale(.7);
@@ -131,7 +134,7 @@ class Alert {
                     transform:translate(-50%, -50%)  scale(1);
                 }
             }
-            .wd-alert-box > .wd-alert-title{
+            ._wd-alert-wrapper .wd-alert-box > .wd-alert-title{
                 color: #575757;
                 font-size: 30px;
                 text-align: center;
@@ -143,7 +146,7 @@ class Alert {
                 line-height: 60px;
                 display: block;
             }
-            .wd-alert-box  .wd-alert-content {
+            ._wd-alert-wrapper .wd-alert-box  .wd-alert-content {
                 font-size: 18px;
                 text-align: center;
                 font-weight: 300;
@@ -155,7 +158,7 @@ class Alert {
                 color: #555;
             }
 
-            .wd-alert-box  .wd-alert-input{
+            ._wd-alert-wrapper .wd-alert-box  .wd-alert-input{
                 width: 100%;
                 box-sizing: border-box;
                 border-radius: 3px;
@@ -169,10 +172,10 @@ class Alert {
                 padding: 0 12px;
              }
 
-            .wd-alert-box .wd-alert-btns{
+            ._wd-alert-wrapper .wd-alert-box .wd-alert-btns{
                 margin: 30px auto 0;
             }
-            .wd-alert-box .wd-alert-btn{
+            ._wd-alert-wrapper .wd-alert-box .wd-alert-btn{
                 margin: 0 5px;
                 color: #fff;
                 border: 0;
@@ -186,44 +189,44 @@ class Alert {
                 background-color: #999;
             }
 
-            .wd-alert-btn:hover{
+            ._wd-alert-wrapper .wd-alert-btn:hover{
                 background-color: #888;
             }
 
-             .wd-alert-box .wd-alert-btn:focus{
+             ._wd-alert-wrapper .wd-alert-box .wd-alert-btn:focus{
                 outline: 0;
                 border: 0;
             }
 
-            ..wd-alert-btn.wd-alert-submit, .wd-alert-btn.wd-alert-notice {
+            ._wd-alert-wrapper .wd-alert-btn.wd-alert-submit, ._wd-alert-wrapper .wd-alert-btn.wd-alert-notice {
                  background-color: rgb(48, 133, 214);
             }
-            .wd-alert-btn.wd-alert-submit, .wd-alert-btn.wd-alert-notice:hover{
+            ._wd-alert-wrapper .wd-alert-btn.wd-alert-submit, ._wd-alert-wrapper .wd-alert-btn.wd-alert-notice:hover{
                 background-color: rgb(43, 120, 193);
             }
 
-             .wd-alert-btn.wd-alert-confirm {
+             ._wd-alert-wrapper .wd-alert-btn.wd-alert-confirm {
                  background-color: rgb(92,184,92);
             }
-            .wd-alert-btn.wd-alert-confirm:hover{
+            ._wd-alert-wrapper .wd-alert-btn.wd-alert-confirm:hover{
                 background-color: rgb(68,157,68);
             }
 
-           .wd-alert-btn.wd-alert-cancel{
+           ._wd-alert-wrapper .wd-alert-btn.wd-alert-cancel{
                 background-color: #999;
             }
-            .wd-alert-btn.wd-alert-cancel:hover{
+           ._wd-alert-wrapper .wd-alert-btn.wd-alert-cancel:hover{
                 background-color: #888;
             }
 
-             .wd-alert-btn.wd-alert-reject{
+           ._wd-alert-wrapper  .wd-alert-btn.wd-alert-reject{
                 background-color: #d9534f;
             }
-             .wd-alert-btn.wd-alert-reject:hover{
+           ._wd-alert-wrapper  .wd-alert-btn.wd-alert-reject:hover{
                  background-color: #c9302c;
              }
         </style>
-        `
+        `)
         return t
     }
 
@@ -238,7 +241,7 @@ class Alert {
     }
 
     initCss(){
-        const css = this.e('#id-style-alert')
+        const css = this.e(`#_id-style-alert`)
         if (css === null){
             const t = this.cssTemplate()
             document.head.insertAdjacentHTML('beforeend', t)
@@ -246,13 +249,9 @@ class Alert {
     }
 
     insertHtml(t){
-        let box = this.e('.wd-alert-box', this.container() )
+        let box = this.e('.wd-alert-box', this.wrapper )
         box.innerHTML = ''
-        this.container.insertAdjacentHTML('beforeend', t)
-    }
-
-    clearContainer() {
-        this.wrapper.remove()
+        box.insertAdjacentHTML('beforeend', t)
     }
 }
 
@@ -265,9 +264,8 @@ class AlertNotice extends Alert {
 
     noticeTemplate() {
         const t = `
-                <div class="wd-alert-box">
                     <div class="wd-alert-title">
-                        ${this.title.toUpperCase()}
+                        ${this.title}
                     </div>
                     <div class="wd-alert-content">
                          ${this.notice}
@@ -275,7 +273,6 @@ class AlertNotice extends Alert {
                     <div class="wd-alert-btns">
                     <button class="wd-alert-btn wd-alert-notice">OK</button>
                      </div>
-                </div>
             `
             return t
         }

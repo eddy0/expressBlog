@@ -70,6 +70,6 @@ const run = (port=3000, host) => {
 if (require.main === module){
     configApp()
     let host = '0.0.0.0'
-    let port = 3000
+    let port = 7000
     run(port, host )
 }

@@ -50,9 +50,6 @@ const UniqueUsername = (username) => {
         username: username,
     }
     return new Ajax().post('/api/valid', form)
-        .then((data) => {
-            console.log(data)
-        })
 }
 
 const preventDefault = (event) => {
@@ -85,23 +82,22 @@ const hintByMonitor = (input) => {
         let val = input.value
         let status = {valid: false}
         status = action[name](val)
-        if (status.valid === true){
-            log('valid')
+        if (input.classList.contains('login-username') && status.valid === true){
             UniqueUsername(val)
-                .then((valid) => {
-                    if (valid){
+                .then((data) => {
+                    if (data.success){
                         status = {
-                            valid: valid,
-                            hint: 'you can use this username!'
+                            valid: true,
+                            hint: data.message,
                         }
                         area.classList.add('valid')
                     } else {
                         status = {
-                            valid: valid,
-                            hint: 'username already exists'
+                            valid: false,
+                            hint: data.message,
                         }
                     }
-
+                    area.innerText = status.hint
                 })
         } else {
             area.classList.remove('valid')
@@ -143,7 +139,6 @@ const signUpEvent = () => {
 
 const signUpMonitor = () => {
     signUpEvent()
-    UniqueUsername()
 }
 
 signUpMonitor()

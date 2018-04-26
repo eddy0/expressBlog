@@ -34,6 +34,9 @@ const registerRouter = () => {
     const index = require('./routes/index.js')
     app.use('/', index)
 
+    const apiSign = require('./routes/api/sign.js')
+    app.use('/api/', apiSign)
+
     const apiTopic = require('./routes/apiTopic.js')
     app.use('/api/topic/', apiTopic)
 }
@@ -50,6 +53,12 @@ const configApp = () => {
         secret: 'key',
         }
     ))
+
+    app.use((req, res, next)=> {
+        res.locals.flash = req.session.flash
+        delete req.session.flash
+        next()
+    })
 
     app.use('/static', express.static(path.join(__dirname, 'static')))
 

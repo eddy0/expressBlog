@@ -55,7 +55,7 @@ const promiseAjax = (method, path, data) => {
     let promise = new Promise((reslove, reject) => {
         const r = new XMLHttpRequest()
         r.open(method, path, true)
-        r.setRequestHeader('Content-Type', 'allication/json')
+        r.setRequestHeader('Content-Type', 'application/json')
         r.onreadystatechange = () => {
             if (r.readyState === 4) {
                 reslove(r.response)

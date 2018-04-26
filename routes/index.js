@@ -33,8 +33,6 @@ router.get('/topic/new', (req, res) => {
     res.render('new.html', args)
 })
 
-
-
 router.get('/topic/:id',  loginRequired, (req, res) => {
     let id = Number(req.params.id)
     let topic = Topic.detail(id)
@@ -53,10 +51,11 @@ router.get('/topic/:id',  loginRequired, (req, res) => {
     }
 })
 
-
-
 router.get('/signup', (req, res) => {
+    res.render('signup.html')
+})
 
+router.post('/signup', (req, res) => {
     res.render('signup.html')
 })
 
@@ -77,12 +76,13 @@ router.post('/signin', (req, res) => {
     if (valid) {
         let u = User.findBy('username', form.username)
         req.session.uid = u._id
-        let nextUrl = form.nextUrl
+        let nextUrl = form.nextUrl || '/'
         res.redirect(nextUrl)
     } else {
         req.session.flash = {
-            message: 'wrong message'
+            message: 'wrong username and password'
         }
+        res.redirect('/signin')
     }
 })
 

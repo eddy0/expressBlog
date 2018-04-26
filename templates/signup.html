@@ -37,13 +37,31 @@
 
         }
 
+        .wd-login-box .wd-login-input {
+            margin: 5px auto;
+            font-size: 18px;
+        }
+
         .wd-login-title{
             font-size: 27px;
             font-weight: 600;
             color: #2e2e2e;
             margin-bottom: 30px;
         }
+    </style>
+    <style>
+        .prevent {
+            background: #ccc!important;
+            cursor: not-allowed !important;
+        }
 
+        button.prevent:focus {
+            background: #ccc;
+        }
+
+        button.prevent:hover {
+            background: #ccc;
+        }
     </style>
     <title>Document</title>
 </head>
@@ -55,15 +73,18 @@
             <div class="wd-login-title">
                 Welcome to Join us
             </div>
+            <form action="/signup" method="post" >
             <div class="wd-login-inputWrapper">
-                <form action="/signup" method="post" >
-                    <input class="wd-login-input login-username" type="text" placeholder="username">
-                    <input class="wd-login-input login-password" type="password" placeholder="password">
-                </form>
+                    <input class="wd-login-input login-username" name="username" type="text" placeholder="username">
+                    <span class="wd-hint  wd-username-valid" style="display: block; font-size: 13px;line-height:20px; height: 20px"></span>
+                    <input class="wd-login-input login-password" type="password"  name="password"  placeholder="password">
+                    <span class="wd-hint wd-password-valid" style="display: block; font-size: 13px;line-height:20px; height: 20px"></span>
             </div>
             <div class="wd-login-btns">
-                <button class="wd-login-btn wd-alert-confirm">Sign Up</button>
+                <button class="wd-login-btn wd-alert-confirm prevent" type="submit" >Sign Up</button>
             </div>
+            </form>
+
             <div class="wd-login-signup">
                 <span>Already has account? </span>
                 <a href="/signin">Sign in.</a>
@@ -72,7 +93,10 @@
 
     </div>
 </div>
-<script src="wd.js"></script>
+
+<script src="/static/js/wd.js"></script>
+<script src="/static/js/todoApi.js"></script>
+<script src="/static/js/signup.js"></script>
 
 
 

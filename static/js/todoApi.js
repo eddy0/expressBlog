@@ -13,7 +13,7 @@ remove(id)
 
 class Ajax {
     constructor() {
-        this.baseUrl = 'http://localhost:3000'
+        this.baseUrl = 'http://localhost:7000'
     }
 
     ajaxpro({method, path, headers, data}) {
@@ -90,8 +90,6 @@ class TodoApi extends Ajax {
         return this.get(path)
     }
 }
-
-
 
 class TopicApi extends Ajax {
     constructor() {

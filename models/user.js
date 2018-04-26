@@ -32,7 +32,6 @@ class User extends Model {
         const {username, email, password} = form
         const pwd = this.saltedPassword(password)
         const u = this.findBy('username', username)
-        log(u, pwd)
         return u !== null && u.password === pwd
     }
 

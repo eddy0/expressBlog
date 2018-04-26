@@ -1,155 +1,6 @@
-class Alert {
-    constructor() {
-        this.init()
-        this.container = this.e('.wd-login-container')
-        this.action = undefined
-    }
-
-    on(event){
-        this.action = event
-        return this
-    }
-
-    fire(...args) {
-        if (this.action !== undefined) {
-            this.action.apply(this, args)
-        }
-    }
-
-    e(sel) {
-        return document.querySelector(sel)
-    }
-
-    es(sel){
-        return document.querySelectorAll(sel)
-    }
-
-    bindAll(selector, eventName, callback){
-        const element = this.es(selector)
-        for (let i = 0; i < element.length; i++ ) {
-            let tag = element[i]
-            tag.addEventListener(eventName, (event) => {
-                callback(event)
-            })
-        }
-    }
-
-    has(event) {
-        let self = event.target
-        return self.classList.contains.bind(self.classList)
-    }
-
-    init() {
-        this.initframe()
-    }
-
-    initframe(){
-        const container = this.e('.wd-login-container')
-        if (container !== null){
-            container.remove()
-        }
-        let t = `
-            <div class="wd-login-container alert-show">
-                <div class="wd-login-overlay"></div>
-                <div class="wd-login-box"></div>
-            </div>
-            `
-        document.body.insertAdjacentHTML('beforeend', t)
-    }
-
-    insertHtml(t){
-        let box = this.e('.wd-login-box')
-        box.innerHTML = t
-    }
-}
-
-class AlertNotice extends Alert {
-    constructor(args) {
-        super()
-        this.title = args.title || ''
-        this.notice = args.notice || ''
-        this.appendHtml()
-        this.actionAlert()
-    }
-
-    noticeTemplate() {
-        const t = `
-                <div class="wd-login-box">
-                    <div class="wd-login-title">
-                        ${this.title}
-                    </div>
-                    <div class="wd-login-content">
-                         ${this.notice}
-                    </div>
-                    <div class="wd-login-btns">
-                    <button class="wd-login-btn wd-login-notice">OK</button>
-                     </div>
-                </div>
-            `
-            return t
-        }
-
-    appendHtml() {
-        const t = this.noticeTemplate()
-        this.insertHtml(t)
-    }
-
-    actionAlert(){
-        this.container.addEventListener('click', () => {
-            this.container.classList.toggle('alert-show')
-        })
-    }
-}
-
-class AlertConfirm extends Alert {
-    constructor(args) {
-        super()
-        this.title = args.title || ''
-        this.notice = args.notice || ''
-        this.appendHtml()
-        this.actionAlert()
-    }
-
-    confirmTemplate() {
-        const t = `
-                <div class="wd-login-box">
-                    <div class="wd-login-title">
-                        ${this.title.toUpperCase()}
-                    </div>
-                    <div class="wd-login-content">
-                         ${this.notice}
-                    </div>
-                    <div class="wd-login-btns">
-                    <button class="wd-login-btn wd-alert-confirm">OK</button>
-                    <button class="wd-login-btn wd-login-reject">NO</button>
-                    </div>
-                </div>
-            `
-        return t
-    }
-
-    appendHtml() {
-        const t = this.confirmTemplate()
-        this.insertHtml(t)
-    }
-
-    actionAlert(){
-        this.bindAll('.wd-login-btn', 'click', (event) => {
-            this.container.classList.toggle('alert-show')
-            if (this.has(event, 'wd-alert-confirm')){
-                this.fire(true)
-            } else if (this.has(event,'wd-login-reject')) {
-                this.fire(false)
-            }
-        })
-    }
-}
-
 class AlertLogin extends Alert {
     constructor(args) {
-        super()
-        this.title = args.title || ''
-        this.placeholder = args.placeholder || []
+        super(args)
         this.appendHtml()
         this.actionAlert()
     }
@@ -199,28 +50,31 @@ class AlertLogin extends Alert {
     }
 }
 
-const sucessNotice = () => {
-    let sucess = new AlertNotice({
+const successNotice = () => {
+    AlertNotice.create({
+        wrapperClass: 'notice',
         title: 'Success',
-        notice: 'you have logged in'
+        notice: 'you have logged in',
+        overlayColor: '#D7EFEE',
+        wrapperColor: '#fff',
     })
 }
 
-const faledNotice = () => {
-    let failed = new AlertNotice({
+const failNotice = () => {
+    AlertNotice.create({
         title: 'Failed',
-        notice: 'you have typped wrong username / password'
+        notice: 'wrong username / password<br> pls try again!'
     })
 }
 
-let userTemplate = (data) => {
+const userTemplate = (user) => {
     let t  = `
     <div class="header-avatar">
-                <img src="${data.avatar}" alt="">
+                <img src="${user.avatar}" alt="">
                 <div class="header-popover">
                         <ul class="wd-popover-list">
                             <li class="item">
-                                <a href="/profile/${data.id}">
+                                <a href="/profile/${user._id}">
                                     <svg viewBox="0 0 20 20" width="14" height="16" aria-hidden="true" style="height: 16px; width: 14px;">
                                         <g>
                                             <path d="M13.4170937,10.9231839 C13.0412306,11.5757324 12.5795351,12.204074 12.6542924,12.7864225 C12.9457074,15.059449 18.2164534,14.5560766 19.4340179,15.8344151 C20,16.4286478 20,16.4978969 20,19.9978966 C13.3887136,19.9271077 6.63736785,19.9978966 0,19.9978966 C0.0272309069,16.4978969 0,16.5202878 0.620443914,15.8344151 C1.92305664,14.3944356 7.20116276,15.1185829 7.40016946,12.7013525 C7.44516228,12.1563518 7.02015319,11.5871442 6.63736814,10.9228381 C4.51128441,7.2323256 3.69679769,4.67956187e-11 10,9.32587341e-14 C16.3032023,-4.66091013e-11 15.4216968,7.4429255 13.4170937,10.9231839 Z"></path>
@@ -229,7 +83,7 @@ let userTemplate = (data) => {
                                     <span>Profile</span>
                                 </a>
                             </li>
-                            <li class="item">
+                            <li class="item"  data-action="logOut">
                                 <a href="/logout">
                                     <svg viewBox="0 0 20 20" class="Icon Button-icon Icon--logout" width="14" height="16" aria-hidden="true" style="height: 16px; width: 14px;"><title></title>
                                         <g>
@@ -255,57 +109,60 @@ const renderLoginHtml = (data) => {
     appendHtml(container, t )
 }
 
-let logoutTemplate = () => {
-    const t =
-        `
-        <div class="header-login">
-                <a href="javascript:;" class="signIn" data-action="signIn">Sign in</a>
-                <a href="/signup" class="signUp">Get Started</a>
-            </div>
-        `
-     return t
-}
+// const logoutTemplate = () => {
+//     const t =
+//         `
+//         <div class="header-login">
+//                 <a href="javascript:;" class="signIn" data-action="signIn">Sign in</a>
+//                 <a href="/signup" class="signUp">Get Started</a>
+//             </div>
+//         `
+//      return t
+// }
+//
+// const renderLogoutHtml = () => {
+//     let container = e('.header-info')
+//     container.innerHTML = ''
+//     let t = logoutTemplate()
+//     appendHtml(container, t )
+// }
 
-const renderLogoutHtml = () => {
-    let container = e('.header-info')
-    container.innerHTML = ''
-    let t = logoutTemplate()
-    appendHtml(container, t )
-
+const callbackSignIn = (confirm, value) => {
+    if (confirm){
+        let path = '/api/signin'
+        new Ajax().post(path, value)
+            .then( (data) => {
+            if (data.success === true){
+                successNotice()
+                renderLoginHtml(data.data)
+            } else{
+                failNotice()
+            }
+        })
+    }
 }
 
 const signInTrigger = () => {
-    let loginFunction = (confirm, value) => {
-        if (confirm){
-            let l = new TodoApi()
-            // let data = signin.post('/login',value)
-            l.post('/login',value).then( (data) => {
-                if (data.success === true){
-                    sucessNotice()
-                    renderLoginHtml(data.data)
-                } else{
-                    faledNotice()
-                }
-            })
-        }
-    }
-
-
-
-    new AlertLogin({
+    AlertInput.create({
         title: 'Welcome Back',
-        placeholder: [
-                        'username',
-                        'password',
-                    ]
-    }).on(loginFunction)
+        input: [ {
+            name: 'username',
+            placeholder: 'username',
+            type: 'text',
+        },
+            {
+                name: 'password',
+                placeholder: 'password',
+                type: 'password',
+            },
+        ]
+    }).on(callbackSignIn)
 }
 
 const signOutTrigger = () => {
     log('in')
     renderLogoutHtml()
-    let l = new TodoApi()
-    // let data = signin.post('/login',value)
+    // new AJax().post('/logout')
     // l.get('/logout').then( (data) => {
     //     console.log('data', data)
     // })
@@ -313,21 +170,17 @@ const signOutTrigger = () => {
 
 const ToggleUserInfo = () => {
     let wrapper = e('.header-info')
-    log('wrapper', wrapper)
     const popover = e('.header-popover', wrapper)
     popover.classList.add('show-user')
     popover.focus()
-
-
     popover.addEventListener('focusout', (event) => {
         setTimeout( () => {
-            // log('blur')
             popover.classList.remove('show-user')
         }, 150)
     })
 }
 
-const actionFromList = (self) => {
+const actionFromPopover = (self) => {
     const item = self.closest('.item')
     if (item !== null){
         let action = item.dataset.action
@@ -335,7 +188,7 @@ const actionFromList = (self) => {
     }
 }
 
-const loginMain = () => {
+const loginEvent = () => {
     const container = e('.header-info')
     let actions = {
         'avatar': ToggleUserInfo,
@@ -347,14 +200,12 @@ const loginMain = () => {
         const self = event.target
         let action = self.dataset.action
         if (action === undefined){
-            action = actionFromList(self)
+            action = actionFromPopover(self)
         }
-        log('click', self, action)
-
         if (action in actions){
             actions[action](self)
         }
     })
 }
 
-loginMain()
+loginEvent()

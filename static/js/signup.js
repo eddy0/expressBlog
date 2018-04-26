@@ -1,45 +1,40 @@
 
+const unique = (input) => {
+    let typed = true
+
+    input.addEventListener('input', (event) => {
+        let time = Date.now()
+        let timebox = time
+    })
+}
+
 const validUsername = (s) => {
-    let status = { valid: true, hint: '检查合格'  }
+    let status = {
+        start: true,
+        end: true,
+        min: true,
+        max: true,
+        type: true,
+    }
     let letter = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     let number = '0123456789'
     let special = '_'
     let rules = letter + number + special
     if (!letter.includes(s[0])) {
-        status = { valid: false, hint: '只能字母开头', }
+        status.start = false
     }
     if (!(letter + number).includes(s[s.length - 1])) {
-        status = { valid: false, hint: '只能字母或数字结尾', }
+        status.end = false
     }
     if (s.length < 3 ) {
-        status = { valid: false, hint: '最小长度3', }
+        status.min = false
     }
     if (s.length > 10) {
-        status = { valid: false, hint: '最大长度10', }
+        status.max = false
     }
     for (let i = 0; i < s.length; i++) {
         if (!rules.includes(s[i])) {
-            status = { valid: false, hint: '只能包含字母、数字、下划线', }
-        }
-    }
-    return status
-}
-
-const validPassword = (s) => {
-    let status = { valid: true, hint: '检查合格'  }
-    let letter = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    let number = '0123456789'
-    let special = '_'
-    let rules = letter + number + special
-    if (s.length < 3 ) {
-        status = { valid: false, hint: '最小长度3', }
-    }
-    if (s.length > 10) {
-        status = { valid: false, hint: '最大长度10', }
-    }
-    for (let i = 0; i < s.length; i++) {
-        if (!rules.includes(s[i])) {
-            status = { valid: false, hint: '只能包含字母(大小写敏感)、数字、下划线', }
+            status.type = false
         }
     }
     return status
@@ -51,6 +46,31 @@ const UniqueUsername = (username) => {
     }
     return new Ajax().post('/api/valid', form)
 }
+
+// const validPassword = (s) => {
+//     let status = {
+//         min: true,
+//         max: true,
+//         type: true,
+//     }
+//
+//     let letter = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+//     let number = '0123456789'
+//     let special = '_'
+//     let rules = letter + number + special
+//     if (s.length < 3 ) {
+//         status.min = false
+//     }
+//     if (s.length > 10) {
+//         status.max = false
+//     }
+//     for (let i = 0; i < s.length; i++) {
+//         if (!rules.includes(s[i])) {
+//             status.type = false
+//         }
+//     }
+//     return status
+// }
 
 const preventDefault = (event) => {
     event.preventDefault()
@@ -71,73 +91,103 @@ const allowSubmit = () => {
     button.removeEventListener('click', preventDefault)
 }
 
-const hintByMonitor = (input) => {
-    let name = input.name
-    let action = {
-        username: validUsername,
-        password: validPassword,
-    }
-    const area = e(`.wd-${name}-valid`)
-    input.addEventListener('keyup', (event) => {
-        let val = input.value
-        let status = {valid: false}
-        status = action[name](val)
-        if (input.classList.contains('login-username') && status.valid === true){
-            UniqueUsername(val)
-                .then((data) => {
-                    if (data.success){
-                        status = {
-                            valid: true,
-                            hint: data.message,
-                        }
-                        area.classList.add('valid')
-                    } else {
-                        status = {
-                            valid: false,
-                            hint: data.message,
-                        }
+const submitEvent = () => {
+    if (input.classList.contains('login-username') && status.valid === true){
+        UniqueUsername(val)
+            .then((data) => {
+                if (data.success){
+                    status = {
+                        valid: true,
+                        hint: data.message,
                     }
-                    area.innerText = status.hint
-                })
-        } else {
-            area.classList.remove('valid')
-        }
-        area.innerText = status.hint
-        allowSubmit()
-    })
-}
+                    area.classList.add('valid')
+                } else {
+                    status = {
+                        valid: false,
+                        hint: data.message,
+                    }
+                }
+                area.innerText = status.hint
+            })
 
-const signUpUsername = (input) => {
-}
-
-const signUpPassword = () => {
-    const area = e('.wd-password-valid')
-
-}
-
-const signUpMapper = () => {
-    let mapper = {
-        'login-username': signUpUsername,
-        'login-password': signUpPassword,
+    } else {
+        area.classList.remove('valid')
     }
-    return mapper
+    allowSubmit()
+
+}
+
+const validate = (input) => {
+    let name = input.name
+    let val = input.value
+    let status = validUsername(val)
+    const area = e(`.wd-${name}-valid`)
+    const items = es('.item')
+    for (let i = 0; i < items.length; i++ ) {
+        let item = items[i]
+        let action = item.dataset.action
+        if (status[action]){
+            item.classList.add('valid')
+        } else {
+            item.classList.remove('valid')
+        }
+    }
+}
+
+// const signUpMapper = () => {
+//     let mapper = {
+//         'login-username': validUsername,
+//         'login-password': validPassword,
+//     }
+//     return mapper
+// }
+
+
+const inputHandler = (event, callback) => {
+    let mapper = ['login-username', 'login-password']
+    const self = event.target
+    let has = self.classList.contains.bind(self.classList)
+    for (let key of mapper) {
+        if (has(key)){
+            callback(self)
+        }
+    }
 }
 
 const signUpEvent = () => {
-    let mapper = signUpMapper()
-    bindAll('wd-login-input', 'click', (event) =>{
+    let mapper = ['login-username', 'login-password']
+
+    bindAll('wd-login-input', 'click', (event) => {
         const self = event.target
         let has = self.classList.contains.bind(self.classList)
-        for (let key in mapper) {
+        for (let key of mapper) {
             if (has(key)){
-                hintByMonitor(self)
-                // mapper[key](self)
+                let div = key.slice(6)
+                removeClassAll('active')
+                let hint = e(`.wd-${div}-valid`)
+                hint.classList.add('active')
+            }
+        }
+    })
+
+    bindAll('wd-login-input', 'input', (event) =>{
+        const self = event.target
+        log('self', event)
+        let has = self.classList.contains.bind(self.classList)
+        for (let key of mapper) {
+            if (has(key)){
+                validate(self)
             }
         }
     })
 }
 
+const showHint = () => {
+
+}
+
 const signUpMonitor = () => {
+    showHint()
     signUpEvent()
 }
 

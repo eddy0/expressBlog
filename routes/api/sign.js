@@ -45,7 +45,6 @@ router.post('/signup', (req, res) => {
 
 router.post('/valid', (req, res) => {
     let form = req.body
-    log('valid',form)
     let valid = User.findBy('username', form.username) === null
     let args = {
         success: true,

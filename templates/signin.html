@@ -55,6 +55,11 @@
     <div class="wd-login-inputWrapper">
         <input class="wd-login-input login-username" name="username" type="text" placeholder="username">
         <input class="wd-login-input login-password" name="password" type="password" placeholder="password">
+        <span class="wd-hint" style="display: block; font-size: 14px;line-height:20px; height: 20px; color: salmon">
+                        {% if (flash | length ) > 0 %}
+                        {{ flash.message }}
+                        {% endif %}
+                    </span>
     </div>
     <div class="wd-login-btns">
         <input  name="nextUrl" type="text" value="{{ nextUrl}}" hidden style="display: none">

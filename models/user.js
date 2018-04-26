@@ -37,10 +37,10 @@ class User extends Model {
 
     static register(form) {
         const {username, email, password} = form
-        log('form', form)
         const uniqueUser = this.findBy('username', username) === null
         // const uniqueEmail = this.findBy('email', username) === null
-        const validForm = username.length > 3 && password > 3
+        const validForm = username.length >= 3 && password.length >= 3
+        log('validForm', validForm)
         if (uniqueUser && validForm){
             let u = this.create(form)
             return u

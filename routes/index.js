@@ -16,7 +16,6 @@ router.get('/', (req, res) => {
     })
     let tags = Tag.all()
     let u = currentUser(req)
-    log('u', u)
     args = {
         topics: topics,
         tags: tags,
@@ -52,11 +51,27 @@ router.get('/topic/:id',  loginRequired, (req, res) => {
 })
 
 router.get('/signup', (req, res) => {
-    res.render('signup.html')
+    let nextUrl = req.query.nextUrl || '/'
+    res.render('signup.html', {
+        nextUrl: nextUrl,
+    })
 })
 
 router.post('/signup', (req, res) => {
-    res.render('signup.html')
+    let form = req.body
+    log('form', form)
+    let u = User.register(form)
+    log('u', u)
+    if (u !== null) {
+        let nextUrl = form.nextUrl || '/'
+        req.session.uid = u._id
+        res.redirect(nextUrl)
+    } else {
+        req.session.flash = {
+            message: 'invalid username and password'
+        }
+        res.redirect('/signup')
+    }
 })
 
 
@@ -69,7 +84,7 @@ router.get('/signin', (req, res) => {
 })
 
 router.post('/signin', (req, res) => {
-    const form = req.body
+    let form = req.body
     log('form', form)
     let valid = User.validLogin(form)
     log('valid')
@@ -80,7 +95,7 @@ router.post('/signin', (req, res) => {
         res.redirect(nextUrl)
     } else {
         req.session.flash = {
-            message: 'wrong username and password'
+            message: 'invalid username and password'
         }
         res.redirect('/signin')
     }

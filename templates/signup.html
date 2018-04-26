@@ -140,11 +140,16 @@
                 Welcome to Join us
             </div>
             <form action="/signup" method="post" >
-            <div class="wd-login-inputWrapper" style="position: relative">
+                <input  name="nextUrl" type="text" value="{{ nextUrl}}" hidden style="display: none !important;">
+                <div class="wd-login-inputWrapper" style="position: relative">
                     <input class="wd-login-input login-username" name="username" type="text" placeholder="username">
-                    <span class="wd-username-exist" style="display: block; font-size: 13px;line-height:20px; height: 20px"></span>
+                    <span class="wd-hint wd-username-exist" style="display: block; font-size: 13px;line-height:20px; height: 20px">
+                        {% if (flash | length ) > 0 %}
+                        {{ flash.message }}
+                        {% endif %}
+                    </span>
                     <input class="wd-login-input login-password" type="password"  name="password"  placeholder="password">
-                <div class="wd-hint wd-username-valid">
+                <div class="wd-username-valid">
                 <ul class="wd-popover-list">
                     <li class="item" data-action="type">
                         <i class="far fa-check-circle"></i>
@@ -169,7 +174,7 @@
 
                 </ul>
                 </div>
-                <div class="wd-hint wd-password-valid">
+                <div class="wd-password-valid">
                     <ul class="wd-popover-list">
                         <li class="item" data-action="type">
                             <i class="far fa-check-circle"></i>

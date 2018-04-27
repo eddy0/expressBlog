@@ -191,21 +191,36 @@ header .header-avatar {
         word-break: break-all;
     }
 
-    .edit {
+    .profile-update {
         font-size: 15px;
         color: #2b78c1;
         line-height: 20px;
         margin-left: 40px;
         cursor: pointer;
-        display: none;
+        opacity: 0;
+        transition: all 0.2s;
+
+
+        & > svg {
+            height: 20px;
+            vertical-align: bottom;
+            padding: 0;
+            margin: auto;
+            display: inline-block;
+        }
 
         &:hover {
             color: darken(#2b78c1, 20%);
         }
     }
 
-    &:hover .edit {
-        display: inline-block;
+    &:hover .profile-update {
+        opacity: 1;
+
+        &:hover, &:hover svg {
+            color: darken(#2b78c1, 20%);
+            fill: darken(#2b78c1, 20%);
+        }
     }
 
     .profile-add {

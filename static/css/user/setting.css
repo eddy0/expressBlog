@@ -145,17 +145,27 @@ header .header-avatar {
   .main .profile-wrapper .text-box {
     max-width: 410px;
     word-break: break-all; }
-  .main .profile-wrapper .edit {
+  .main .profile-wrapper .profile-update {
     font-size: 15px;
     color: #2b78c1;
     line-height: 20px;
     margin-left: 40px;
     cursor: pointer;
-    display: none; }
-    .main .profile-wrapper .edit:hover {
+    opacity: 0;
+    transition: all 0.2s; }
+    .main .profile-wrapper .profile-update > svg {
+      height: 20px;
+      vertical-align: bottom;
+      padding: 0;
+      margin: auto;
+      display: inline-block; }
+    .main .profile-wrapper .profile-update:hover {
       color: #18446e; }
-  .main .profile-wrapper:hover .edit {
-    display: inline-block; }
+  .main .profile-wrapper:hover .profile-update {
+    opacity: 1; }
+    .main .profile-wrapper:hover .profile-update:hover, .main .profile-wrapper:hover .profile-update:hover svg {
+      color: #18446e;
+      fill: #18446e; }
   .main .profile-wrapper .profile-add {
     font-size: 15px;
     display: flex;

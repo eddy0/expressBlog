@@ -16,6 +16,28 @@ class Ajax {
         this.baseUrl = 'http://localhost:7000'
     }
 
+    ajaxImg({ path, data}) {
+        let method = 'POST'
+        let url = this.baseUrl + path
+        log('url',url)
+        let promise = new Promise((resolve, reject) => {
+            const r = new XMLHttpRequest()
+            r.open(method, url, true)
+            r.onreadystatechange = () => {
+                if(r.readyState === 4) {
+                    let res = JSON.parse(r.response)
+                    resolve(res)
+                }
+            }
+            r.onerror = () => {
+                reject(r)
+            }
+
+            r.send(data)
+        })
+        return promise
+    }
+
     ajaxpro({method, path, headers, data}) {
         method = method || 'GET'
         path = path || '/'
@@ -54,7 +76,6 @@ class Ajax {
 
     post(path, data, headers) {
         let method = 'POST'
-
         return this.ajaxpro({
             method: method,
             path: path,
@@ -116,4 +137,18 @@ class TopicApi extends Ajax {
         let path = '/delete/' + String(id)
         return this.get(path)
     }
+}
+
+class SettingApi extends Ajax {
+    constructor() {
+        super()
+        this.baseUrl = this.baseUrl + '/api/user'
+    }
+
+    uploadImg(data) {
+        let path = '/upload/avatar'
+        return this.ajaxImg({path, data})
+    }
+
+
 }

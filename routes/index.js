@@ -34,7 +34,8 @@ router.get('/topic/new', (req, res) => {
 
 router.get('/topic/:id',  loginRequired, (req, res) => {
     let id = Number(req.params.id)
-    let topic = Topic.detail(id)
+    let u = currentUser(req)
+    let topic = Topic.detail(u, id)
     let author = User.get(topic.uid)
     log('author', author)
     let tags = Tag.all()
@@ -43,6 +44,7 @@ router.get('/topic/:id',  loginRequired, (req, res) => {
             topic: topic,
             tags: tags,
             author: author,
+            user: u,
         }
         res.render('detail.html', args)
     } else{

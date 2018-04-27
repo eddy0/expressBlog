@@ -14,6 +14,7 @@ class Topic extends Model {
         this.comments = form.comments || 0
         this.like = form.like || 0
         this.uid = form.uid || -1
+        this.author = form.author || {}
         this.brief = form.brief || this.content
     }
 
@@ -25,10 +26,12 @@ class Topic extends Model {
         return m
     }
 
-    static detail(id) {
+    static detail(user, id) {
         const m = super.get(id)
-        m.views += 1
-        m.save()
+        if (m.uid === user._id) {
+            m.views += 1
+            m.save()
+        }
         return m
     }
 

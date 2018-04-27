@@ -34,11 +34,20 @@ const registerRouter = () => {
     const index = require('./routes/index.js')
     app.use('/', index)
 
+    const profile = require('./routes/profile.js')
+    app.use('/setting', profile)
+
+    const user = require('./routes/user.js')
+    app.use('/user', user)
+
     const apiSign = require('./routes/api/sign.js')
     app.use('/api/', apiSign)
 
     const apiTopic = require('./routes/apiTopic.js')
     app.use('/api/topic/', apiTopic)
+
+    const apiUser = require('./routes/apiUser.js')
+    app.use('/api/user/', apiUser)
 }
 
 const configApp = () => {

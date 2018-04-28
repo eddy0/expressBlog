@@ -69,6 +69,20 @@ router.post('/upload/avatar', loginRequired,  (req, res) => {
     })
 })
 
+router.post('/setting', loginRequired,  (req, res) => {
+    let form = req.body
+    log(req.body)
+    let u = currentUser(req)
+    u = Object.assign(u, form)
+    u.save()
+    let args = {
+        message: '',
+        success: true,
+        data: u,
+    }
+    res.json(args)
+})
+
 
 
 

@@ -8,10 +8,14 @@ class User extends Model {
         this.username = form.username || ''
         this.email = form.email || ''
         this.password = form.password || ''
-        this.note = form.note || 'nothing is noting'
+        this.note = form.note || 'nothing is writing'
         this.avatar = form.avatar || 'default.png'
         this.role = form.role || 2
         this.score = form.score || 0
+        this.gendar = form.gendar || undefined
+        this.introduction = form.introduction || ''
+        this.nickname = form.nickname || this.username
+
     }
 
     static create(form) {

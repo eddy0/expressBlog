@@ -3,7 +3,9 @@ let api = new Ajax()
 api.all().then()
 
 get(path)
-post(path, data)
+post({
+path: path,
+data: data})
 all()
 add(data)
 update(id, data)
@@ -74,7 +76,7 @@ class Ajax {
         })
     }
 
-    post(path, data, headers) {
+    post({path, data, headers}) {
         let method = 'POST'
         return this.ajaxpro({
             method: method,
@@ -97,13 +99,16 @@ class TodoApi extends Ajax {
 
     add(data) {
         let path = '/add'
-
-        return this.post(path, data)
+        return this.post({
+            path: path,
+            data: data})
     }
 
     update(id, data) {
         let path = '/update/' + String(id)
-        return this.post(path, data)
+        return this.post({
+            path: path,
+            data: data})
     }
 
     remove(id) {
@@ -125,12 +130,16 @@ class TopicApi extends Ajax {
 
     add(data) {
         let path = '/topic/new'
-        return this.post(path, data)
+        return this.post({
+            path: path,
+            data: data})
     }
 
     update(id, data) {
         let path = '/update/' + String(id)
-        return this.post(path, data)
+        return this.post({
+            path: path,
+            data: data})
     }
 
     remove(id) {
@@ -150,5 +159,12 @@ class SettingApi extends Ajax {
         return this.ajaxImg({path, data})
     }
 
-
+    update(data) {
+        let path = '/setting'
+        return  this.post({
+            path: path,
+            data: data,
+        })
+    }
 }
+

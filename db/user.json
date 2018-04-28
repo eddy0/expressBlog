@@ -10,7 +10,9 @@
     "note": "nothing is noting",
     "avatar": "default.img",
     "role": 2,
-    "score": 0
+    "score": 0,
+    "introduction": "",
+    "nickname": "gua1234567"
   },
   {
     "createdTime": 1524517230763,
@@ -23,7 +25,9 @@
     "note": "nothing is noting",
     "avatar": "default.img",
     "role": 2,
-    "score": 0
+    "score": 0,
+    "introduction": "",
+    "nickname": "gua1237"
   },
   {
     "createdTime": 1524517230763,
@@ -36,7 +40,9 @@
     "note": "nothing is noting",
     "avatar": "default.img",
     "role": 2,
-    "score": 0
+    "score": 0,
+    "introduction": "",
+    "nickname": "gua1237"
   },
   {
     "createdTime": 1524517230763,
@@ -49,7 +55,9 @@
     "note": "nothing is noting",
     "avatar": "default.png",
     "role": 2,
-    "score": 0
+    "score": 0,
+    "introduction": "",
+    "nickname": "gua1237"
   },
   {
     "createdTime": 1524517230763,
@@ -57,12 +65,14 @@
     "_id": 5,
     "activated": true,
     "username": "gua1",
-    "email": "",
+    "email": "sdsfafadfssadfssssssssdf",
     "password": "96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e",
     "note": "nothing is noting",
     "avatar": "default.png",
     "role": 2,
-    "score": 0
+    "score": 0,
+    "introduction": "",
+    "nickname": "gua2"
   },
   {
     "createdTime": 1524781786846,
@@ -75,7 +85,9 @@
     "note": "nothing is noting",
     "avatar": "default.img",
     "role": 2,
-    "score": 0
+    "score": 0,
+    "introduction": "",
+    "nickname": "eawf"
   },
   {
     "createdTime": 1524782575631,
@@ -88,6 +100,8 @@
     "note": "nothing is noting",
     "avatar": "7554dda6b27087525363a4415873de20",
     "role": 2,
-    "score": 0
+    "score": 0,
+    "introduction": "",
+    "nickname": "sskgua"
   }
 ]

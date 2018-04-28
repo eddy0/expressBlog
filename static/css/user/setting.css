@@ -85,6 +85,17 @@ header .header-avatar {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   border-radius: 5px; }
 
+.profile-link {
+  position: absolute;
+  right: 26px;
+  top: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #2b78c1; }
+  .profile-link:hover {
+    color: #18446e; }
+
 .img-picker {
   position: absolute;
   left: 0;
@@ -140,11 +151,12 @@ header .header-avatar {
     width: 150px;
     font-weight: 600;
     color: #3f3f3f;
-    margin-top: auto;
     margin-bottom: auto; }
   .main .profile-wrapper .text-box {
     max-width: 410px;
     word-break: break-all; }
+  .main .profile-wrapper .profile-value:focus {
+    outline: none; }
   .main .profile-wrapper .profile-update {
     font-size: 15px;
     color: #2b78c1;
@@ -183,84 +195,48 @@ header .header-avatar {
     .main .profile-wrapper svg:hover {
       color: #18446e; }
 
-.main .main-title input.title-content {
-  width: 100%;
-  border: 1px solid #ebebeb;
-  height: 50px;
-  font-size: 25px;
-  border-radius: 5px;
-  font-weight: 600;
-  padding: 2px 20px;
-  box-sizing: border-box; }
-  .main .main-title input.title-content:focus {
-    outline: 0;
-    border-color: #d2d2d2; }
+.input-area {
+  position: relative; }
 
-.tag-content {
-  margin-top: 20px;
-  display: flex;
-  align-items: center; }
-  .tag-content .tag-header {
-    display: flex;
-    font-size: 18px; }
-  .tag-content .tag-list {
-    display: flex;
-    font-size: 15px; }
-    .tag-content .tag-list .tag-item {
-      box-sizing: border-box;
-      margin-left: 15px;
-      padding: 6px;
-      border-radius: 4px;
-      color: #fff;
-      cursor: pointer;
-      transition: all 0.2s; }
+.input-area .input-btns {
+  margin-top: 30px; }
 
-.tag-item.selected {
-  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.2); }
+input.input-update {
+  font-size: 20px;
+  border: 0;
+  outline: 0; }
 
-.main-textarea {
-  margin-top: 40px; }
-
-.text-container {
-  box-sizing: border-box;
-  min-height: 600px;
-  width: 100%;
-  font-size: 16px;
-  border: 1px solid #ebebeb;
-  border-radius: 5px;
-  padding: 5px 10px; }
-  .text-container:focus {
-    outline: 0;
-    border-color: #9f9f9f; }
-
-.footer {
+.input-btns {
   margin-top: 30px;
-  float: right; }
+  display: none; }
 
-.wd-topic-btn {
-  margin: 0 5px;
+.wd-input-btn {
+  display: inline-block;
+  position: relative;
+  left: -12px;
+  margin-right: 20px;
   color: #fff;
   border: 0;
   box-shadow: none;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 500;
   border-radius: 5px;
-  padding: 10px 32px;
+  padding: 3px 10px;
   cursor: pointer;
   box-sizing: border-box;
   background-color: #ddd; }
 
-.wd-topic-btn:focus {
+.wd-input-btn:focus {
   outline: 0;
   border: 0; }
 
-.wd-topic-btn:hover {
-  background-color: #9f9f9f; }
+.wd-input-btn:hover {
+  background-color: #bfbfbf; }
 
-.wd-topic-btn.wd-topic-submit {
+.wd-input-btn.wd-input-submit {
   background-color: rgba(48, 133, 214, 0.8); }
 
-.wd-topic-submit:hover, .wd-topic-btn.wd-topic-notice:hover {
+.wd-input-submit:hover {
   background-color: rgba(43, 120, 193, 0.9); }
 
 /*# sourceMappingURL=setting.css.map */

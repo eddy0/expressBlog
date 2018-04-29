@@ -89,6 +89,7 @@ router.post('/signin', (req, res) => {
     let form = req.body
     log('form', form)
     let valid = User.validLogin(form)
+
     log('valid')
     if (valid) {
         let u = User.findBy('username', form.username)
@@ -99,7 +100,11 @@ router.post('/signin', (req, res) => {
         req.session.flash = {
             message: 'invalid username and password'
         }
-        res.redirect('/signin')
+        let nextUrl = req.query.nextUrl || '/signin'
+
+        res.redirect('/signin', {
+            nextUrl: nextUrl
+        })
     }
 })
 

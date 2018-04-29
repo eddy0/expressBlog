@@ -3,6 +3,7 @@ const express = require('express')
 const path = require('path')
 const multer = require('multer')
 const uploadPath = 'uploads/'
+const { calendarDate } = require('../filter')
 
 const upload = multer({
     dest: uploadPath,
@@ -13,6 +14,9 @@ const User = require('../models/user.js')
 const Tag = require('../models/tag.js')
 const { currentUser, loginRequired } = require('./main.js')
 
+
+
+
 const router = express.Router()
 
 router.get('/setting', loginRequired, (req, res) => {
@@ -21,11 +25,41 @@ router.get('/setting', loginRequired, (req, res) => {
     topics = topics.filter( (topic) => {
         return topic.uid === u._id
     })
-    args = {
+    let args = {
         topics: topics,
         user: u
     }
     res.render('setting.html', args)
+})
+
+router.get('/:uid', loginRequired, (req, res) => {
+    let u = currentUser(req)
+    let id = Number(req.params.uid)
+    let user = User.get(id)
+    log('user',id, user)
+    let createdTime = calendarDate(user.createdTime)
+    let filteredUser = {
+        uid: user._id,
+        nickname: user.nickname,
+        createdTime: createdTime,
+        email: user.email,
+        note: user.note,
+        introduction: user.introduction,
+    }
+    if (user !== null) {
+        let topics = Topic.all()
+        topics = topics.filter( (topic) => {
+            return topic.uid === user._id
+        })
+        let  args = {
+            topics: topics,
+            filteredUser: filteredUser,
+            user: u,
+        }
+        res.render('profile.html', args)
+    } else {
+        res.status(404).send('not found')
+    }
 })
 
 

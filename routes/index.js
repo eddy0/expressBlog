@@ -1,4 +1,4 @@
-const { log } = require('../utils.js')
+const { log, sortBy } = require('../utils.js')
 const express = require('express')
 const Topic = require('../models/topic.js')
 const User = require('../models/user.js')
@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
     })
     let tags = Tag.all()
     args = {
-        topics: topics,
+        topics: topics.sort(sortBy('createdTime')),
         tags: tags,
         user: u
     }
@@ -57,7 +57,7 @@ router.get('/topic/tag/:tag', (req, res) => {
     })
     let tags = Tag.all()
     args = {
-        topics: topics,
+        topics: topics.sort(sortBy('createdTime')),
         tags: tags,
         user: u
     }

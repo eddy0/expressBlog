@@ -13,6 +13,7 @@
     <!--<script src="/static/lib/editor/editor.js"></script>-->
     <!--<script src="/static/lib/editor/ext.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
     <!-- Font Awesome for awesome icons. You can redefine icons used in a plugin configuration -->
 
@@ -31,7 +32,7 @@
 
     <!--<link rel="stylesheet" href="new.css">-->
     <!--<link rel="stylesheet" href="../card.css">-->
-    <link rel="stylesheet" href="/static/css/index/card.css">
+    <!--<link rel="stylesheet" href="/static/css/index/card.css">-->
     <link rel="stylesheet" href="/static/css/topic/new.css">
 
 
@@ -66,15 +67,19 @@
 
 
     <div class="tag-content">
-        <span class="tag-header">Select A Tag:</span>
+        <span class="tag-header">Select A Tag&nbsp;:</span>
         <div class="tag-list">
             {% for tag in tags %}
             <span class="tag-item {{ tag.name }} "> {{ tag.name }}</span>
             {% endfor %}
         </div>
-
+        <div class="tag-hint ">
+            <span>At Least One Tag</span>
+        </div>
 
     </div>
+
+
 </section>
     <section class="main-textarea">
         <div class="text-container" contenteditable="true">
@@ -129,130 +134,7 @@
 <script src="/static/js/wd.js"></script>
 <script src="/static/js/todoApi.js"></script>
 <script src="/static/js/alertAction.js"></script>
-
-<script>
-
-    const formatContent = (content) => {
-        content = content.split('<div>').join('<br>')
-        content = content.split('</div>').join('<br>')
-        return content
-    }
-
-    const validContent = (str) => {
-        let len = str.length
-        if (len < 4){
-            return false
-        }
-
-        let trim = ''
-        for (let i = 0; i < len; i++ ) {
-            let s = str[i]
-            if (s !== ' '){
-                trim += s
-            }
-        }
-        if (trim.length < 4){
-            return false
-        }
-
-        return str
-    }
-
-    const topicTile = () => {
-        const box = e('.title-content')
-        let title = box.value
-        title = validContent(title)
-        return title
-    }
-
-    const topicTag = () => {
-        const items = es('.selected')
-        if (items.length < 1 ){
-            return false
-        } else {
-            let tags = []
-            for (let i = 0; i < items.length; i++ ) {
-                let tag = items[i].innerText
-                tags.push(tag)
-            }
-            return tags
-        }
-    }
-
-    const topicContent = () => {
-        const box = e('.text-container')
-        let content = box.innerHTML
-        content = formatContent(content)
-        content = validContent(content)
-        return content
-    }
-
-    const NewTopicSubmit = () => {
-        let title = topicTile()
-        let tag = topicTag()
-        let content = topicContent()
-        let valid = title && tag && content
-        if (valid){
-            return {title, tag, content}
-        }
-    }
-
-    const bindTagEvent = () => {
-        bindAll('tag-item', 'click', (event) => {
-            let self = event.target
-            self.classList.toggle('selected')
-        })
-    }
-
-    const actionsSubmit = (element, data) => {
-        let cls = element.classList
-        if (cls.contains('wd-topic-submit')){
-            data.uid = 1
-            let api = new TopicApi()
-            api.add(data).then( (r) => {
-                if (r.success === true) {
-                    log('success')
-                    new AlertNotice({
-                        title:'success',
-                        notice: 'add successfully'
-                    }).on( () => {
-                        window.location.href='http://localhost:7000/'
-                    })
-                }
-            })
-        }
-    }
-
-    const newTopicEvent = () => {
-        bindTagEvent()
-        // get the title
-        bindAll('wd-topic-btn', 'click', (event) => {
-            let self = event.target
-            let content = NewTopicSubmit()
-            log(content)
-            if (content !== undefined){
-                actionsSubmit(self, content)
-            } else{
-                console.log('todo a reminder')
-                alert('title length must greater then 4; must select a tag ')
-            }
-        })
-    }
-
-    const __TopicMain = () => {
-        newTopicEvent()
-        let editor = new MediumEditor('.text-container')
-
-    }
-
-
-    document.addEventListener("DOMContentLoaded", function(event) {
-        __TopicMain()
-
-    })
-
-
-</script>
+<script src="/static/js/newTopic.js"></script>
 
 
 </body>

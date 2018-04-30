@@ -99,7 +99,8 @@ class TodoApi extends Ajax {
         let path = '/add'
         return this.post({
             path: path,
-            data: data})
+            data: data
+        })
     }
 
     update(id, data) {
@@ -142,6 +143,14 @@ class TopicApi extends Ajax {
     all() {
         let path = '/all'
         return this.get(path)
+    }
+
+    add(data) {
+        let path = '/new'
+        return this.post({
+            path: path,
+            data: data
+        })
     }
 
     full(id) {

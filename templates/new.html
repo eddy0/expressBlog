@@ -8,14 +8,23 @@
     <!--<link rel="stylesheet" href="/static/lib/editor/editor.css">-->
     <!--<link rel="stylesheet" href="/static/lib/webuploader/webuploader.css">-->
     <!--<script src="/static/lib/jquery-3.0.0.min.js"></script>-->
-    <!--<script src="/static/lib/markdownit.js"></script>-->
     <!--<script src="/static/lib/webuploader/webuploader.withoutimage.js"></script>-->
     <!--<script src="/static/lib/editor/editor.js"></script>-->
     <!--<script src="/static/lib/editor/ext.js"></script>-->
-    <script src="https://cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/medium-editor@5.23.3/dist/css/themes/beagle.min.css">
     <!-- Font Awesome for awesome icons. You can redefine icons used in a plugin configuration -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <script src="/static/lib/medium/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+
+
+    <script src="/static/lib/markdownit.js"></script>
+
 
 
     <!-- CSS -->
@@ -93,44 +102,19 @@
 <div class="wd-alert-container"></div>
 
 
-<!--<div class="main">-->
-    <!--<div id="content">-->
-        <!--<div class="panel">-->
-            <!--<div class="inner post">-->
-                <!--<form id="create_topic_form" method="post" action="/topic/add">-->
-                    <!--<fieldset>-->
-                        <!--<textarea autofocus class='span9' id='title' name='title' rows='1' placeholder="标题字数 10 字以上"></textarea>-->
-                        <!--<span class="tab-selector">选择版块：</span>-->
-                        <!--<select name="tag" id="tag" required>-->
-                            <!--<option value="">请选择</option>-->
-                            <!--{% for tag in tags %}-->
-                            <!--<option value="{{ tag.tagName }}">{{ tag.tagName }}</option>-->
-                            <!--{% endfor %}-->
-                        <!--</select>-->
-                        <!--<div class='markdown_editor in_editor'>-->
-                            <!--<div class='markdown_in_editor'>-->
-                                <!--<textarea class='editor' name='content' rows='20' placeholder='文章支持 Markdown 语法, 请注意标记代码'></textarea>-->
-                                <!--<div class='editor_buttons'>-->
-                                    <!--<input type="submit" class='span-primary submit_btn' data-loading-text="提交中" value="提交">-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</fieldset>-->
-                <!--</form>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
+
+<link rel="stylesheet" href="/static/lib/medium/medium-editor-insert-plugin.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/jquery.ui.widget@1.10.3/jquery.ui.widget.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.iframe-transport@1.0.0/jquery.iframe-transport.min.js"></script>
+<script src=""></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-sortable@0.9.13/source/js/jquery-sortable.min.js"></script>
+<script src="/static/lib/medium/jquery.fileupload.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@4.0.11/dist/handlebars.runtime.min.js"></script>
+<script src="/static/lib/medium/medium-editor-insert-plugin.min.js"></script>
 
 
-<!--<script>-->
-    <!--(function () {-->
-        <!--var editor = new Editor();-->
-        <!--editor.render($('.editor')[0]);-->
-    <!--})();-->
-<!--</script>-->
 
-<!--<script src="../wd.js"></script>-->
 <script src="/static/js/wd.js"></script>
 <script src="/static/js/todoApi.js"></script>
 <script src="/static/js/alertAction.js"></script>

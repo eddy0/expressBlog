@@ -135,9 +135,10 @@ const newTopicEvent = () => {
 
 const __TopicMain = () => {
     newTopicEvent()
-    let editor = new MediumEditor('.text-container')
-
+    // let editor = new MediumEditor('.CodeMirror-code')
 }
+
+
 
 
 document.addEventListener("DOMContentLoaded", function(event) {

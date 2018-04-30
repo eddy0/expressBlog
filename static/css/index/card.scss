@@ -257,13 +257,13 @@ $blue: rgb(43, 120, 193);
           color: $dark-grey;
       }
 
-      .action-star {
+      .action-mark {
         &:hover, &:hover svg{
           color:$dark-grey;
         }
 
-        &.stared{
-          color:$dark-grey;
+        &.marked{
+          color:$green;
           .icon-star{
             color: $green;
           }
@@ -285,6 +285,26 @@ $blue: rgb(43, 120, 193);
           color: $secondary;
         }
       }
+
+      .action-star {
+        &:hover{
+          color:$dark-grey;
+          .icon-like {
+            color: $light-secondary;
+          }
+        }
+      }
+
+      .action-star.starred{
+        color: #cd8b00;
+        .icon-mark{
+          fill: #cd8b00;
+          color: #cd8b00;
+        }
+      }
+
+
+
 }
 
 .wd-card .topic-tag {

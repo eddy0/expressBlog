@@ -21,7 +21,6 @@ class Ajax {
     ajaxImg({ path, data}) {
         let method = 'POST'
         let url = this.baseUrl + path
-        log('url',url)
         let promise = new Promise((resolve, reject) => {
             const r = new XMLHttpRequest()
             r.open(method, url, true)
@@ -61,7 +60,6 @@ class Ajax {
             }
 
             data = JSON.stringify(data)
-            log('data', data, typeof data)
             r.send(data)
         })
         return promise
@@ -120,7 +118,7 @@ class TodoApi extends Ajax {
 class TopicApi extends Ajax {
     constructor() {
         super()
-        this.baseUrl = this.baseUrl + '/api'
+        this.baseUrl = this.baseUrl + '/api/topic'
     }
 
     all() {
@@ -128,23 +126,38 @@ class TopicApi extends Ajax {
         return this.get(path)
     }
 
-    add(data) {
-        let path = '/topic/new'
-        return this.post({
-            path: path,
-            data: data})
-    }
-
-    update(id, data) {
-        let path = '/update/' + String(id)
-        return this.post({
-            path: path,
-            data: data})
-    }
-
-    remove(id) {
-        let path = '/delete/' + String(id)
+    full(id) {
+        let path = '/full/' + String(id)
         return this.get(path)
+    }
+
+    brief(id) {
+        let path = '/brief/' + String(id)
+        return this.get(path)
+    }
+
+    star(id, status) {
+        let path = '/star'
+        let data = {
+            starred: status,
+            id: id,
+        }
+        return this.post({
+            path: path,
+            data: data,
+        })
+    }
+
+    mark(id, status) {
+        let path = '/mark'
+        let data = {
+            marked: status,
+            id: id,
+        }
+        return this.post({
+            path: path,
+            data: data,
+        })
     }
 }
 

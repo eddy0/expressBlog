@@ -15,7 +15,6 @@ class User extends Model {
         this.gendar = form.gendar || undefined
         this.introduction = form.introduction || ''
         this.nickname = form.nickname || this.username
-
     }
 
     static create(form) {
@@ -53,6 +52,7 @@ class User extends Model {
             return null
         }
     }
+
 
     static guest() {
         let form = {

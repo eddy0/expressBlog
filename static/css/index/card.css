@@ -155,11 +155,11 @@
       margin-right: 4px; }
   .wd-card .card-action .action-comments:hover {
     color: #1e1e1e; }
-  .wd-card .card-action .action-star:hover, .wd-card .card-action .action-star:hover svg {
+  .wd-card .card-action .action-mark:hover, .wd-card .card-action .action-mark:hover svg {
     color: #1e1e1e; }
-  .wd-card .card-action .action-star.stared {
-    color: #1e1e1e; }
-    .wd-card .card-action .action-star.stared .icon-star {
+  .wd-card .card-action .action-mark.marked {
+    color: #4aa48a; }
+    .wd-card .card-action .action-mark.marked .icon-star {
       color: #4aa48a; }
   .wd-card .card-action .action-like:hover {
     color: #1e1e1e; }
@@ -169,6 +169,15 @@
     color: #1e1e1e; }
     .wd-card .card-action .action-like.liked .icon-like {
       color: #F3969A; }
+  .wd-card .card-action .action-star:hover {
+    color: #1e1e1e; }
+    .wd-card .card-action .action-star:hover .icon-like {
+      color: #f7c0c2; }
+  .wd-card .card-action .action-star.starred {
+    color: #cd8b00; }
+    .wd-card .card-action .action-star.starred .icon-mark {
+      fill: #cd8b00;
+      color: #cd8b00; }
 
 .wd-card .topic-tag {
   color: #fff;

@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/static/css/index/popover.css">
     <link rel="stylesheet" href="/static/css/sign_in/login.css">
     <script src="/static/lib/fontawesome-all.min.js"></script>
+    <script src="/static/lib/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 
@@ -214,11 +215,12 @@
             {% for t in topics %}
 
 
-            <div class="wd-card">
-            <span class="card-remove">
-                          <svg class="icon icon-clear" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-                    </span>
+            <div class="wd-card" data-id="{{t._id}}">
+
+            <!--<span class="card-remove">-->
+                          <!--<svg class="icon icon-clear" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">-->
+                              <!--<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>-->
+                    <!--</span>-->
 
                 <div class="feed-date">
                     published by {{ t.createdTime | formattedTime() }}
@@ -238,11 +240,12 @@
                     </div>
                 </div>
 
-                <div class="content-box">
+                <div class="content-box" >
                     <a href="/topic/{{t._id}}" class="content-title" style="display: inline-block">
                         <span>{{ t.title }}</span>
                     </a>
-                    <a href="/topic/{{t._id}}" class="content-main">
+                    <!--<a href="/topic/{{t._id}}" class="content-main">-->
+                    <a href="javascript:;" class="content-main brief" >
                             <span class="content-detail">
                                {{ t.brief }}
                             </span>
@@ -264,8 +267,9 @@
 
             <div class="card-action">
 
-                    <span class="action-star">
+                    <span class="action-star {{ t.star_status }}">
                     <i class='fas fa-star icon-font icon-star'></i>
+
                     <span class="star-count">
                         {{t.stars}}&nbsp;Stars
                     </span>
@@ -275,15 +279,15 @@
                     <i class='fas fa-comments icon-font icon-comments'></i>
                     <span class="comments-count">{{t.comments}}&nbsp;Comments</span></span>
 
-                    <span class="action-like">
-                    <i class='fas fa-heart icon-font icon-like'></i>
-                    Like
+                    <span class="action-mark {{ t.mark_status }}">
+                    <i class="fas fa-bookmark icon-mark"></i>
+                    &nbsp;Mark
                 </span>
 
-                <span class="action-bookmark">
-                    mark
-                <svg class="svgIcon-use" width="25" height="25" viewBox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg>
- </span>
+                <!--<span class="action-bookmark">-->
+                    <!--mark-->
+                <!--<svg class="svgIcon-use" width="25" height="25" viewBox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg>-->
+ <!--</span>-->
                     <!--<span class="action-share">-->
                     <!--<i class='fas fa-share-alt icon-font icon-share' ></i>-->
                     <!--share-->
@@ -308,7 +312,7 @@
                 <ul class="tag-list ">
                     {% for tag in tags %}
                     <li class="tag-item  {{ tag.name }}">
-                        <span> {{ tag.name }} </span>
+                        <a href="/tag/{{tag.name}}"><span> {{ tag.name }} </span></a>
                     </li>
 
                     {% endfor %}

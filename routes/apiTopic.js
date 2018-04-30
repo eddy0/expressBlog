@@ -12,6 +12,97 @@ router.post('/', (req, res) => {
     res.redirect('/')
 })
 
+router.get('/full/:id', loginRequired, (req, res) => {
+    let id = Number(req.params.id)
+    let t = Topic.get(id)
+    let args = {
+        success: true,
+        message: '',
+        data: t.content,
+    }
+    res.json(args)
+})
+
+router.get('/brief/:id', loginRequired, (req, res) => {
+    let id = Number(req.params.id)
+    let t = Topic.get(id)
+    let args = {
+        success: true,
+        message: '',
+        data: t.brief,
+    }
+    res.json(args)
+})
+
+
+router.post('/star', loginRequired, (req, res) => {
+    const form = req.body
+    const u = currentUser(req)
+    let id = Number(form.id)
+    let topic = Topic.get(id)
+    let args
+    if (topic !== null) {
+        let member = topic.starred
+        let index = member.findIndex( (m) => {
+            return m === u._id
+        })
+        if (index > -1) {
+            topic.starred.splice(index, 1)
+            topic.stars --
+        } else {
+            topic.starred.push(u._id)
+            topic.stars ++
+        }
+        topic.save()
+        args = {
+            success: true,
+            message: '',
+            data: topic.stars,
+        }
+    } else {
+        args = {
+            success: false,
+            message: 'wrong',
+            data: [],
+        }
+    }
+    res.json(args)
+})
+
+router.post('/mark', loginRequired, (req, res) => {
+    const form = req.body
+    const u = currentUser(req)
+    let id = Number(form.id)
+    let topic = Topic.get(id)
+    let args
+    if (topic !== null) {
+        let member = topic.marked
+        let index = member.findIndex( (m) => {
+            return m === u._id
+        })
+        if (index > -1) {
+            topic.marked.splice(index, 1)
+            topic.marks --
+        } else {
+            topic.marked.push(u._id)
+            topic.marks ++
+        }
+        topic.save()
+        args = {
+            success: true,
+            message: '',
+            data: topic.marks,
+        }
+    } else {
+        args = {
+            success: false,
+            message: 'wrong',
+            data: [],
+        }
+    }
+    res.json(args)
+})
+
 router.post('/new', loginRequired, (req, res) => {
     const form = req.body
     const u = currentUser(req)

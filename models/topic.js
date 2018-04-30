@@ -10,12 +10,15 @@ class Topic extends Model {
         this.tags = form.tags || []
         this.content = form.content || ''
         this.views = form.views || 0
-        this.stars = form.stars || 0
         this.comments = form.comments || 0
-        this.like = form.like || 0
         this.uid = form.uid || -1
         this.author = form.author || {}
         this.brief = form.brief || this.content
+        this.marked = form.marked || []
+        this.starred = form.starred || []
+        this.stars = form.stars || 0
+        this.marks = form.marks || 0
+
     }
 
     static create(form) {
@@ -35,17 +38,20 @@ class Topic extends Model {
         return m
     }
 
-    static up(id, type) {
-        const m = super.get(id)
-        m[type] += 1
-        m.save()
-        return m
-    }
-
-    static down(id, type) {
-        const m = super.get(id)
-        m[type] -= 1
-        m.save()
+    static action(id, uid, type) {
+        const topic = super.get(id)
+        if (topic !== null) {
+            let action =  topic[type]
+            let index = action.findIndex( (a) => {
+                return a === uid
+            })
+            if (index === -1) {
+                topic[type].push(uid)
+            } else {
+                topic[type].splice(uid)
+            }
+        }
+        topic.save()
         return m
     }
 

@@ -8,14 +8,25 @@ const { currentUser, loginRequired } = require('./main.js')
 const router = express.Router()
 
 router.get('/', (req, res) => {
+    let u = currentUser(req)
     let topics = Topic.all()
     topics = topics.map( (topic) => {
         let author = User.get(topic.uid)
         topic.author = author
+        topic.star_status = ''
+        topic.mark_status = ''
+        log('topics', topic)
+        if (topic.marked.includes(u._id)) {
+            topic.mark_status = 'marked'
+        }
+
+        if (topic.starred.includes(u._id)) {
+            topic.star_status = 'starred'
+        }
+
         return topic
     })
     let tags = Tag.all()
-    let u = currentUser(req)
     args = {
         topics: topics,
         tags: tags,

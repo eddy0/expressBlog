@@ -139,8 +139,7 @@ const renderLoginHtml = (data) => {
 
 const callbackSignIn = (confirm, value) => {
     if (confirm){
-        let path = '/api/signin'
-        new Ajax().post(path, value)
+        new LoginApi().siginIn(value)
             .then( (data) => {
             if (data.success === true){
                 successNotice()
@@ -169,6 +168,23 @@ const signInTrigger = () => {
     }).on(callbackSignIn)
 }
 
+const signinRequest = () => {
+    AlertInput.create({
+        title: 'Please Sign in',
+        input: [ {
+            name: 'username',
+            placeholder: 'username',
+            type: 'text',
+        },
+            {
+                name: 'password',
+                placeholder: 'password',
+                type: 'password',
+            },
+        ]
+    }).on(callbackSignIn)
+}
+
 const signOutTrigger = () => {
     log('in')
     renderLogoutHtml()
@@ -177,7 +193,6 @@ const signOutTrigger = () => {
     //     console.log('data', data)
     // })
 }
-
 
 const ToggleUserInfo = () => {
     let wrapper = e('.header-info')
@@ -191,8 +206,6 @@ const ToggleUserInfo = () => {
         }, 150)
     })
 }
-
-
 
 const actionFromPopover = (self) => {
     const item = self.closest('.item')

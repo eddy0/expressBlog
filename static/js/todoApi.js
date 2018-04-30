@@ -115,6 +115,24 @@ class TodoApi extends Ajax {
     }
 }
 
+
+class LoginApi extends Ajax {
+    constructor() {
+        super()
+        this.baseUrl = this.baseUrl + '/api'
+    }
+
+    siginIn(data) {
+        let path = '/signin'
+        return this.post({
+            path: path,
+            data: data,
+        })
+    }
+}
+
+
+
 class TopicApi extends Ajax {
     constructor() {
         super()

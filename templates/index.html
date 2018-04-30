@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/static/css/index/card.css">
     <link rel="stylesheet" href="/static/css/index/popover.css">
     <link rel="stylesheet" href="/static/css/sign_in/login.css">
+    <link rel="stylesheet" href="/static/css/index/toTop.css">
     <script src="/static/lib/fontawesome-all.min.js"></script>
     <script src="/static/lib/jquery-3.3.1.min.js"></script>
 </head>
@@ -88,8 +89,9 @@
                         </ul>
                     </div>
                 </div>
+            {% endif  %}
             </div>
-        {% endif  %}
+
             
         </div>
 </header>
@@ -227,12 +229,12 @@
                 </div>
 
                 <div class="feed-author">
-                    <a href="/user/{{t.author._id}}" class="author-avatar">
-                        <img src="https://vip.kybmig.cc/uploads/avatar/default.gif" alt=""/>
+                    <a href="/user/{{t.uid}}" class="author-avatar">
+                        <img src="/user/avatar/{{t.author.avatar}}" alt="img"/>
                     </a>
                     <div class="author-detail">
                         <div class="author-name">
-                            <a href="/user/{{t.author.uid}}"> {{ t.author.username }}</a>
+                            <a href="/user/{{t.uid}}"> {{ t.author.username }}</a>
                         </div>
                         <span class="author-note">
                         {{ t.author.note }}
@@ -276,8 +278,11 @@
                 </span>
 
                     <span class="action-comments">
+                        <a href="/topic/{{t._id}}#comments">
                     <i class='fas fa-comments icon-font icon-comments'></i>
-                    <span class="comments-count">{{t.comments}}&nbsp;Comments</span></span>
+                    <span class="comments-count">{{t.comments}}&nbsp;Comments</span>
+                            </a>
+                    </span>
 
                     <span class="action-mark {{ t.mark_status }}">
                     <i class="fas fa-bookmark icon-mark"></i>
@@ -308,11 +313,12 @@
             <div class="hot-tag">
                 <div class="tag-header">
                     <span class="tag-title">Hot Tag</span>
+                    <span class="tag-all" style="margin-right: 5px"><a href="/">All</a></span>
                 </div>
                 <ul class="tag-list ">
                     {% for tag in tags %}
                     <li class="tag-item  {{ tag.name }}">
-                        <a href="/tag/{{tag.name}}"><span> {{ tag.name }} </span></a>
+                        <a href="/topic/tag/{{tag.name}}"><span> {{ tag.name }} </span></a>
                     </li>
 
                     {% endfor %}
@@ -366,9 +372,18 @@
 
                 </ul>
             </div>
+
+            <div class="to-top">
+                <span>TOP</span>
+            </div>
+
         </section>
+
+
     </div>
+
 </div>
+
 
 
 <footer></footer>
@@ -377,6 +392,7 @@
 <script src="/static/js/todoApi.js"></script>
 <script src="/static/js/alertAction.js"></script>
 <script src="/static/js/login.js"></script>
+<script src="/static/js/top.js"></script>
 <script src="/static/js/index.js"></script>
 
 </body>

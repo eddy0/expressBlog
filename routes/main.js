@@ -15,6 +15,21 @@ const currentUser = (request) => {
     }
 }
 
+
+const ajaxloginRequired = (req, res, next) => {
+    const u = currentUser(req)
+    if (u._id === -1) {
+       let args = {
+           success: false,
+           message: 'please login in',
+           data: []
+       }
+       res.json(args)
+    } else {
+        next()
+    }
+}
+
 const loginRequired = (req, res, next) => {
     const u = currentUser(req)
     if (u._id === -1){
@@ -34,4 +49,5 @@ const loginRequired = (req, res, next) => {
 module.exports = {
     currentUser: currentUser,
     loginRequired: loginRequired,
+    ajaxloginRequired: ajaxloginRequired,
 }

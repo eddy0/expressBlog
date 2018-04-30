@@ -141,7 +141,7 @@ $blue: rgb(43, 120, 193);
         font-size: 16px;
 
         &:hover {
-          color: #000000;
+          color: #225e97;
         }
       }
 
@@ -203,6 +203,7 @@ $blue: rgb(43, 120, 193);
       color:$blue;
       font-size: inherit;
       position: relative;
+
       &:hover svg path, &:hover {
         fill: $light-grey;
         color:$light-grey;

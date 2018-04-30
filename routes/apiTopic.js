@@ -3,7 +3,8 @@ const express = require('express')
 const Topic = require('../models/topic.js')
 const User = require('../models/user.js')
 const Tag = require('../models/tag.js')
-const { currentUser, loginRequired } = require('./main.js')
+const { currentUser, loginRequired, ajaxloginRequired
+} = require('./main.js')
 
 const router = express.Router()
 
@@ -12,7 +13,7 @@ router.post('/', (req, res) => {
     res.redirect('/')
 })
 
-router.get('/full/:id', loginRequired, (req, res) => {
+router.get('/full/:id',  (req, res) => {
     let id = Number(req.params.id)
     let t = Topic.get(id)
     let args = {
@@ -23,7 +24,7 @@ router.get('/full/:id', loginRequired, (req, res) => {
     res.json(args)
 })
 
-router.get('/brief/:id', loginRequired, (req, res) => {
+router.get('/brief/:id',  (req, res) => {
     let id = Number(req.params.id)
     let t = Topic.get(id)
     let args = {
@@ -35,7 +36,7 @@ router.get('/brief/:id', loginRequired, (req, res) => {
 })
 
 
-router.post('/star', loginRequired, (req, res) => {
+router.post('/star', ajaxloginRequired, (req, res) => {
     const form = req.body
     const u = currentUser(req)
     let id = Number(form.id)
@@ -69,39 +70,41 @@ router.post('/star', loginRequired, (req, res) => {
     res.json(args)
 })
 
-router.post('/mark', loginRequired, (req, res) => {
+router.post('/mark', ajaxloginRequired, (req, res) => {
     const form = req.body
     const u = currentUser(req)
-    let id = Number(form.id)
-    let topic = Topic.get(id)
     let args
-    if (topic !== null) {
-        let member = topic.marked
-        let index = member.findIndex( (m) => {
-            return m === u._id
-        })
-        if (index > -1) {
-            topic.marked.splice(index, 1)
-            topic.marks --
+        let id = Number(form.id)
+        let topic = Topic.get(id)
+        if (topic !== null) {
+            let member = topic.marked
+            let index = member.findIndex((m) => {
+                return m === u._id
+            })
+
+            if (index > -1) {
+                topic.marked.splice(index, 1)
+                topic.marks--
+            } else {
+                topic.marked.push(u._id)
+                topic.marks++
+            }
+            topic.save()
+            args = {
+                success: true,
+                message: '',
+                data: topic.marks,
+            }
         } else {
-            topic.marked.push(u._id)
-            topic.marks ++
+            args = {
+                success: false,
+                message: 'wrong',
+                data: [],
+            }
         }
-        topic.save()
-        args = {
-            success: true,
-            message: '',
-            data: topic.marks,
-        }
-    } else {
-        args = {
-            success: false,
-            message: 'wrong',
-            data: [],
-        }
-    }
-    res.json(args)
+        res.json(args)
 })
+
 
 router.post('/new', loginRequired, (req, res) => {
     const form = req.body

@@ -15,7 +15,6 @@ router.get('/', (req, res) => {
         topic.author = author
         topic.star_status = ''
         topic.mark_status = ''
-        log('topics', topic)
         if (topic.marked.includes(u._id)) {
             topic.mark_status = 'marked'
         }
@@ -24,6 +23,36 @@ router.get('/', (req, res) => {
             topic.star_status = 'starred'
         }
 
+        return topic
+    })
+    let tags = Tag.all()
+    args = {
+        topics: topics,
+        tags: tags,
+        user: u
+    }
+    res.render('index.html', args)
+})
+
+router.get('/topic/tag/:tag', (req, res) => {
+    let tag = req.params.tag
+    let u = currentUser(req)
+    let topics = Topic.all()
+    topics = topics.filter( (topic) => {
+        let tags = topic.tags
+        return tags.includes(tag)
+    })
+    topics = topics.map( (topic) => {
+        let author = User.get(topic.uid)
+        topic.author = author
+        topic.star_status = ''
+        topic.mark_status = ''
+        if (topic.marked.includes(u._id)) {
+            topic.mark_status = 'marked'
+        }
+        if (topic.starred.includes(u._id)) {
+            topic.star_status = 'starred'
+        }
         return topic
     })
     let tags = Tag.all()
@@ -46,10 +75,17 @@ router.get('/topic/new', (req, res) => {
 router.get('/topic/:id',  loginRequired, (req, res) => {
     let id = Number(req.params.id)
     let u = currentUser(req)
+    let tags = Tag.all()
     let topic = Topic.detail(u, id)
     let author = User.get(topic.uid)
-    log('author', author)
-    let tags = Tag.all()
+    topic.star_status = ''
+    topic.mark_status = ''
+    if (topic.marked.includes(u._id)) {
+        topic.mark_status = 'marked'
+    }
+    if (topic.starred.includes(u._id)) {
+        topic.star_status = 'starred'
+    }
     if (topic !== null){
         args = {
             topic: topic,
@@ -86,7 +122,6 @@ router.post('/signup', (req, res) => {
         res.redirect('/signup')
     }
 })
-
 
 router.get('/signin', (req, res) => {
     let nextUrl = req.query.nextUrl

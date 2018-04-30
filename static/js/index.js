@@ -3,18 +3,21 @@
 const starUpdate = (wrapper) => {
     let box = wrapper.closest('.wd-card')
     let id = box.dataset.id
-    let status = true
+    let status = false
     if (wrapper.classList.contains('starred')) {
-        status = true
-    } else {
         status = false
+    } else {
+        status = true
     }
     new TopicApi().star(id, status)
         .then((data) => {
             if (data.success) {
+                wrapper.classList.toggle('starred')
                 let count = e('.star-count',wrapper)
                 log(count, data)
                 count.innerText = `${data.data} Stars`
+            } else {
+                signinRequest()
             }
         })
 }
@@ -22,14 +25,20 @@ const starUpdate = (wrapper) => {
 const markUpdate = (wrapper) => {
     let box = wrapper.closest('.wd-card')
     let id = box.dataset.id
-    let status = true
+    let status = false
     if (wrapper.classList.contains('marked')) {
-        status = true
-    } else {
         status = false
+    } else {
+        status = true
     }
     new TopicApi().mark(id, status)
-
+        .then((data) => {
+            if (data.success) {
+                wrapper.classList.toggle('marked')
+            } else {
+                signinRequest()
+            }
+        })
 }
 
 
@@ -37,14 +46,12 @@ const starEvent = () => {
     bindAll('action-star', 'click',  (event) => {
         let self = event.target
         let wrapper = self.closest('.action-star')
-        wrapper.classList.toggle('starred')
         starUpdate(wrapper)
     })
 
     bindAll('action-mark', 'click',  (event) => {
         let self = event.target
         let wrapper = self.closest('.action-mark')
-        wrapper.classList.toggle('marked')
         markUpdate(wrapper)
     })
 }

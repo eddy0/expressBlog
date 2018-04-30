@@ -106,7 +106,6 @@ header {
   z-index: 100;
   margin-bottom: 40px;
   background-color: #fff;
-  opacity: 0.6;
 
   & > .header-container {
     @extend center;
@@ -316,11 +315,33 @@ aside {
     color: #999;
     font-size: 16px;
     padding: 6px 0;
+    text-align: center;
 }
 
-.action-bookmark{
+.action-like {
     position: relative;
-    margin-left: -4px;
+    margin-left: -1px;
+}
+
+.action-mark{
+    position: relative;
+}
+
+.action-star.starred{
+    color: #cd8b00;
+    .icon-mark{
+        fill: #cd8b00;
+        color: #cd8b00;
+    }
+}
+
+.action-mark {
+    &.marked{
+        color: #4aa48a;
+        .icon-star{
+            color:#4aa48a;
+        }
+    }
 }
 
 .content-box {
@@ -421,6 +442,28 @@ aside {
         color: #646464;
     }
 
+    .comments-count {
+        color: #999;
+        position: relative;
+        margin-left: 5px;
+        font-size: 15px;
+
+        &:before{
+            content: '\0028';
+            position: absolute;
+            margin-left: -7px;
+            margin-top: 1px;
+        }
+
+        &:after{
+            content: '\0029';
+            position: absolute;
+            margin-left: 2px;
+            margin-top: 1px;
+        }
+
+    }
+
     .comment-add {
         .input-comment-add {
             position: relative;
@@ -429,7 +472,7 @@ aside {
             word-wrap: break-word;
             width: 100%;
             min-height: 50px;
-            border: 1px solid #ebebeb;
+            border: 1px solid #9f9f9f;
             font-size: 16px;
             border-radius: 5px;
             box-sizing: border-box;

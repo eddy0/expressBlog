@@ -63,10 +63,12 @@ router.get('/:uid', loginRequired, (req, res) => {
 })
 
 
-router.get('/avatar/:avatar', loginRequired, (req, res) => {
+router.get('/avatar/:avatar', (req, res) => {
     let filename = req.params.avatar
     let p = uploadPath + filename
     p = path.resolve(p)
+    log(p)
+
     res.sendFile(p)
 })
 

@@ -620,7 +620,7 @@
     "title": "testestet",
     "tags": [],
     "content": "<p>sdfasdfasdf</p><p>test</p><p>tesstttttewr</p><p>afsdfasfdasdf</p>",
-    "views": 0,
+    "views": 1,
     "comments": 0,
     "uid": 7,
     "author": {
@@ -652,7 +652,7 @@
     "title": "new topi",
     "tags": [],
     "content": "<p>new topicnew topicnew topic</p><p>new topic<br></p><p><br></p><p>new topicnew topicnew topic<br></p><p>new topicnew topic<br></p><p>new topicnew topic<br></p>",
-    "views": 0,
+    "views": 33,
     "comments": 0,
     "uid": 7,
     "author": {
@@ -686,7 +686,7 @@
       "algorithm"
     ],
     "content": "<p>new test</p><p>new test<br></p><p><br></p><p>new testnew testnew testnew test<br></p><p>new test<br></p>",
-    "views": 3,
+    "views": 21,
     "comments": 0,
     "uid": 7,
     "author": {

@@ -15,6 +15,12 @@
     <link rel="stylesheet" href="../static/css/topic/detail.css">
     <link rel="stylesheet" href="../static/css/index/popover.css">
     <script src="../static/lib/fontawesome-all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/medium-editor@5.23.3/dist/css/themes/beagle.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+
 
 </head>
 
@@ -146,15 +152,15 @@
     </article>
     <hr>
 
-    <section class="comment-box" id="comments">
+    <section class="comment-box">
         <div class="comment-title">
             <span>Comments</span>
             <span class="comments-count">{{ topic.comments}}</span>
         </div>
 
         <div class="comment-add clear-fix">
-        <section class="input-comment-add" contenteditable="true">
-           <span style="color: #646464">Add Your Comments</span>
+        <section class="input-comment-add" contenteditable="true" tabindex="1">
+           <span class="placeholder" style="color: #646464"><em>Add Your Comments</em></span>
         </section>
             <div class="wd-comment-btn ">
 
@@ -242,7 +248,8 @@
 <script src="/static/js/todoApi.js"></script>
 <script src="/static/js/alertAction.js"></script>
 <script src="/static/js/login.js"></script>
-<script src="/static/js/top.js"></script>
+<!--<script src="/static/js/top.js"></script>-->
+<script src="/static/js/detail.js"></script>
 
 
 </body>

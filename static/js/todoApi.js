@@ -208,3 +208,53 @@ class SettingApi extends Ajax {
     }
 }
 
+
+class CommentApi extends Ajax {
+    constructor() {
+        super()
+        this.baseUrl = this.baseUrl + '/api/comments'
+    }
+
+    add(data) {
+        let path = '/new'
+        return this.post({
+            path: path,
+            data: data
+        })
+    }
+
+    full(id) {
+        let path = '/full/' + String(id)
+        return this.get(path)
+    }
+
+    brief(id) {
+        let path = '/brief/' + String(id)
+        return this.get(path)
+    }
+
+    star(id, status) {
+        let path = '/star'
+        let data = {
+            starred: status,
+            id: id,
+        }
+        return this.post({
+            path: path,
+            data: data,
+        })
+    }
+
+    mark(id, status) {
+        let path = '/mark'
+        let data = {
+            marked: status,
+            id: id,
+        }
+        return this.post({
+            path: path,
+            data: data,
+        })
+    }
+}
+

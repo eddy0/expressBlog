@@ -338,7 +338,7 @@ aside {
       color: #2e2e2e;
       outline: 0;
       border-color: #d2d2d2;
-      min-height: 100px; }
+      min-height: 60px; }
       .comment-box .comment-add .input-comment-add:focus .wd-topic-btn {
         visibility: visible; }
   .comment-box .comment-list {

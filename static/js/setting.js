@@ -110,7 +110,7 @@ const updateSubmit = (element, content) => {
                 log('add', data,  add, len)
                 if (data.success && add && len) {
                     updateIcon(content, add)
-                } 
+                }
             })
     }
 }

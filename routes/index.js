@@ -3,6 +3,7 @@ const express = require('express')
 const Topic = require('../models/topic.js')
 const User = require('../models/user.js')
 const Tag = require('../models/tag.js')
+const Comment = require('../models/comment.js')
 const { currentUser, loginRequired } = require('./main.js')
 
 const router = express.Router()
@@ -77,6 +78,14 @@ router.get('/topic/:id',  loginRequired, (req, res) => {
     let u = currentUser(req)
     let tags = Tag.all()
     let topic = Topic.detail(u, id)
+    let comments = Comment.all()
+    comments = comments.filter( (comment) =>{
+        return comment.topicId === id
+    })
+    comments.forEach( (comment) => {
+        comment.user = User.get(comment.uid)
+    })
+
     let author = User.get(topic.uid)
     topic.star_status = ''
     topic.mark_status = ''
@@ -87,11 +96,12 @@ router.get('/topic/:id',  loginRequired, (req, res) => {
         topic.star_status = 'starred'
     }
     if (topic !== null){
-        args = {
+        let args = {
             topic: topic,
             tags: tags,
             author: author,
             user: u,
+            comments: comments,
         }
         res.render('detail.html', args)
     } else{

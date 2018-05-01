@@ -212,11 +212,11 @@ class SettingApi extends Ajax {
 class CommentApi extends Ajax {
     constructor() {
         super()
-        this.baseUrl = this.baseUrl + '/api/comments'
+        this.baseUrl = this.baseUrl + '/api/comment'
     }
 
     add(data) {
-        let path = '/new'
+        let path = '/add'
         return this.post({
             path: path,
             data: data

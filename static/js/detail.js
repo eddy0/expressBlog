@@ -1,14 +1,64 @@
 
 
+const generalCommentTemplate = (data) => {
+    let t = `
+       <div class="comment-item">
+                <div class="comment-feed">
+                        <span class="comment-author">
+                            <a href="/user/${data.user._id}" class="comment-author-self">
+                            ${data.user.nickname}
+                            </a>
+                        </span>
+
+                    <span class="comment-date">
+                           ${ data.createdTime}
+                        </span>
+
+                </div>
+
+
+                <div class="comment-content">
+                    ${data.content}
+                </div>
+
+                <div class="comments-action">
+
+                </div>
+
+            </div>
+    `
+    return t
+}
+
+const updateCommentBody = (data) => {
+    let box = e('.comment-list')
+    let t
+    if (data.isAuthor) {
+
+    } else {
+        t = generalCommentTemplate(data)
+    }
+    box.insertAdjacentHTML('afterbegin', t)
+
+}
+
+const topicCommentData = () => {
+    const wrapper = e('.input-comment-add')
+    let content = wrapper.innerHTML
+    return {content}
+}
+
 const commentSubmit = () => {
     const button = e('.wd-comment-btn')
     button.addEventListener('click', ()=> {
         if (button.classList.contains('wd-comment-submit')) {
-            log('ok')
+            let data = topicCommentData()
+            log(data)
             new CommentApi().add(data)
                 .then( (data) => {
-                    log(data)
-                    // updateCommentBody
+                    if (data.success) {
+                        updateCommentBody(data.data)
+                    }
                 })
         }
     })

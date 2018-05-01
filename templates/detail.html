@@ -155,11 +155,11 @@
     <section class="comment-box">
         <div class="comment-title">
             <span>Comments</span>
-            <span class="comments-count">{{ topic.comments}}</span>
+            <span class="comments-count">{{ comments | length}}</span>
         </div>
 
         <div class="comment-add clear-fix">
-        <section class="input-comment-add" contenteditable="true" tabindex="1">
+        <section class="input-comment-add" contenteditable="true" tabindex="1" data-topic="{{topic._id}}">
            <span class="placeholder" style="color: #646464"><em>Add Your Comments</em></span>
         </section>
             <div class="wd-comment-btn ">
@@ -168,66 +168,138 @@
         </div>
 
         <div class="comment-list">
-                <div class="comment-item">
-                    <div class="comment-feed">
-                        <span class="comment-author">
-                            <a href="#" class="comment-author-self">
-                            呵呵哒 (author)
-                            </a>
 
-
-                            <span class="word-reply-to">reply to</span>
-
-                            <a href="" class="comment-reply-to">
-                                gua
-                            </a>
-
-
-
-                        </span>
-
-                        <span class="comment-date">
-                            one day ago
-                        </span>
-
-                    </div>
-
-
-                    <div class="comment-content">
-                        <p>
-                            只要保，内存里是无所，内存里是无所谓的。而且就算是两只要保证符合 ECMAScript 只要保证符合 ECMAScript 规范规定的语义，内存里是无所，内存里是无所，内存里是无所谓的。而且就算是两
-                        </p>
-                        <br>
-                        <span>
-                            只要保，内存里是无所，内存里是无所谓的。而且就算是两只要保证符合 ECMAScript 只要保证符合 ECMAScript 规范规定的语义，内存里是无所，内存里是无所，内存里是无所谓的。而且就算是两
-                        </span>
-                    </div>
-
-                    <div class="comments-action">
-
-                    </div>
-
-                </div>
+            {% for comment in comments %}
 
             <div class="comment-item">
                 <div class="comment-feed">
-                    <a href="#" class="userLink">
-                            <span class='comment-author'>
-                                        呵呵哒
-                            </span>
-                    </a>
+                        <span class="comment-author">
+                            <a href="/user/{{comment.uid}}" class="comment-author-self">
+                                {{comment.user.nickname}}
+                            </a>
+
+                        </span>
+
                     <span class="comment-date">
-                                        one day ago
+                            {{comment.createdTime | formattedTime() }}
                         </span>
+
                 </div>
+
+
                 <div class="comment-content">
-                        <span>
-                            只要保，内存里是无所，内存里是无所谓的。而且就算是两只要保证符合 ECMAScript 只要保证符合 ECMAScript 规范规定的语义，内存里是无所，内存里是无所，内存里是无所谓的。而且就算是两
-                        </span>
+                    {{ comment.content }}
                 </div>
-                <div class="comments-action"></div>
+
+                <div class="comments-action">
+
+                </div>
 
             </div>
+
+            {% endfor %}
+            <!--<div class="comment-item">-->
+                <!--<div class="comment-feed">-->
+                        <!--<span class="comment-author">-->
+                            <!--<a href="#" class="comment-author-self">-->
+                            <!--呵呵哒 (author)-->
+                            <!--</a>-->
+
+
+                            <!--<span class="word-reply-to">reply to</span>-->
+
+                            <!--<a href="" class="comment-reply-to">-->
+                                <!--gua-->
+                            <!--</a>-->
+
+
+
+                        <!--</span>-->
+
+                    <!--<span class="comment-date">-->
+                            <!--one day ago-->
+                        <!--</span>-->
+
+                <!--</div>-->
+
+
+                <!--<div class="comment-content">-->
+                    <!--<p>-->
+                        <!--只要保，内存里是无所，内存里是无所谓的。而且就算是两只要保证符合 ECMAScript 只要保证符合 ECMAScript 规范规定的语义，内存里是无所，内存里是无所，内存里是无所谓的。而且就算是两-->
+                    <!--</p>-->
+                    <!--<br>-->
+                    <!--<span>-->
+                            <!--只要保，内存里是无所，内存里是无所谓的。而且就算是两只要保证符合 ECMAScript 只要保证符合 ECMAScript 规范规定的语义，内存里是无所，内存里是无所，内存里是无所谓的。而且就算是两-->
+                        <!--</span>-->
+                <!--</div>-->
+
+                <!--<div class="comments-action">-->
+
+                <!--</div>-->
+
+            <!--</div>-->
+
+
+            <!--<div class="comment-item">-->
+                    <!--<div class="comment-feed">-->
+                        <!--<span class="comment-author">-->
+                            <!--<a href="#" class="comment-author-self">-->
+                            <!--呵呵哒 (author)-->
+                            <!--</a>-->
+
+
+                            <!--<span class="word-reply-to">reply to</span>-->
+
+                            <!--<a href="" class="comment-reply-to">-->
+                                <!--gua-->
+                            <!--</a>-->
+
+
+
+                        <!--</span>-->
+
+                        <!--<span class="comment-date">-->
+                            <!--one day ago-->
+                        <!--</span>-->
+
+                    <!--</div>-->
+
+
+                    <!--<div class="comment-content">-->
+                        <!--<p>-->
+                            <!--只要保，内存里是无所，内存里是无所谓的。而且就算是两只要保证符合 ECMAScript 只要保证符合 ECMAScript 规范规定的语义，内存里是无所，内存里是无所，内存里是无所谓的。而且就算是两-->
+                        <!--</p>-->
+                        <!--<br>-->
+                        <!--<span>-->
+                            <!--只要保，内存里是无所，内存里是无所谓的。而且就算是两只要保证符合 ECMAScript 只要保证符合 ECMAScript 规范规定的语义，内存里是无所，内存里是无所，内存里是无所谓的。而且就算是两-->
+                        <!--</span>-->
+                    <!--</div>-->
+
+                    <!--<div class="comments-action">-->
+
+                    <!--</div>-->
+
+                <!--</div>-->
+
+            <!--<div class="comment-item">-->
+                <!--<div class="comment-feed">-->
+                    <!--<a href="#" class="userLink">-->
+                            <!--<span class='comment-author'>-->
+                                        <!--呵呵哒-->
+                            <!--</span>-->
+                    <!--</a>-->
+                    <!--<span class="comment-date">-->
+                                        <!--one day ago-->
+                        <!--</span>-->
+                <!--</div>-->
+                <!--<div class="comment-content">-->
+                        <!--<span>-->
+                            <!--只要保，内存里是无所，内存里是无所谓的。而且就算是两只要保证符合 ECMAScript 只要保证符合 ECMAScript 规范规定的语义，内存里是无所，内存里是无所，内存里是无所谓的。而且就算是两-->
+                        <!--</span>-->
+                <!--</div>-->
+                <!--<div class="comments-action"></div>-->
+
+            <!--</div>-->
 
         </div>
 

@@ -30,8 +30,18 @@ class Topic extends Model {
 
     static detail(user, id) {
         const m = super.get(id)
-        if (m.uid === user._id) {
+        if (m.uid !== user._id) {
             m.views += 1
+            m.save()
+        }
+        return m
+
+    }
+
+    static comment(uid, id) {
+        const m = super.get(id)
+        if (uid !== m.uid) {
+            m.comments += 1
             m.save()
         }
         return m

@@ -46,6 +46,9 @@ const registerRouter = () => {
     const apiTopic = require('./routes/apiTopic.js')
     app.use('/api/topic/', apiTopic)
 
+    const apiComment = require('./routes/apiComment.js')
+    app.use('/api/comment/', apiComment)
+
     const apiUser = require('./routes/apiUser.js')
     app.use('/api/user/', apiUser)
 }

@@ -508,8 +508,8 @@
     "title": "testtesttest",
     "tags": [],
     "content": "<p>testtesttest\n        </p>",
-    "views": 0,
-    "comments": 0,
+    "views": 1,
+    "comments": 1,
     "uid": 1,
     "author": {},
     "brief": "<p>testtesttest\n        </p>...",
@@ -686,7 +686,7 @@
       "algorithm"
     ],
     "content": "<p>new test</p><p>new test<br></p><p><br></p><p>new testnew testnew testnew test<br></p><p>new test<br></p>",
-    "views": 21,
+    "views": 24,
     "comments": 0,
     "uid": 7,
     "author": {

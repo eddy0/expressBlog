@@ -106,12 +106,13 @@ router.post('/mark', ajaxloginRequired, (req, res) => {
 })
 
 
-router.post('/new', loginRequired, (req, res) => {
+router.post('/new', ajaxloginRequired, (req, res) => {
     const form = req.body
     const u = currentUser(req)
     form.author = u
     form.uid = u._id
     let m = Topic.create(form)
+    log('form', form)
     let args = {
         success: true,
         message: '',

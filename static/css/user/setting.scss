@@ -206,6 +206,10 @@ header .header-avatar {
     }
 
     .profile-value {
+        min-height: 26.4px;
+        min-width: 10px;
+        display: inline-block;
+
         &:focus {
         outline: none;
     }

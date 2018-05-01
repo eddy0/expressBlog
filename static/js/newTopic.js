@@ -6,22 +6,27 @@ const formatContent = (content) => {
 }
 
 const validContent = (str) => {
-    let len = str.length
+    str =  str.slice(0, -1)
+    let len =str.length
     if (len < 4){
         return false
     }
 
-    let trim = ''
-    for (let i = 0; i < len; i++ ) {
-        let s = str[i]
-        if (s !== ' '){
-            trim += s
+    let rule = [' ', '&nbsp;']
+    let l = str.split('')
+
+    for (let i = 0; i < l.length; i++ ) {
+        let char = l[i]
+        if (rule.includes(char) ) {
+            l.splice(i, 1, char)
         }
     }
-    if (trim.length < 4){
+
+    let s = l.join('')
+
+    if (s.length < 4){
         return false
     }
-
     return str
 }
 
@@ -49,18 +54,18 @@ const topicTag = () => {
 const topicContent = () => {
     const box = e('.text-container')
     let content = box.innerHTML
-    content = formatContent(content)
-    content = validContent(content)
-    return content
+    let brief = box.innerText
+    let validBrief = validContent(brief)
+    return {content, brief, validBrief}
 }
 
 const NewTopicSubmit = () => {
     let title = topicTile()
-    let tag = topicTag()
-    let content =  topicContent()
-    let valid = title && tag && content
+    let tags = topicTag()
+    let {content, brief, validBrief} =  topicContent()
+    let valid = title && tags && validBrief
     if (valid){
-        return {title, tag, content}
+        return {title, tags, content, brief}
     }
 }
 
@@ -99,7 +104,7 @@ const bindTagEvent = () => {
 const actionsSubmit = (element, data) => {
     let cls = element.classList
     if (cls.contains('wd-topic-submit')){
-        data.uid = 1
+        log(data)
         let api = new TopicApi()
         api.add(data).then( (r) => {
             if (r.success === true) {
@@ -110,6 +115,8 @@ const actionsSubmit = (element, data) => {
                 }).on( () => {
                     window.location.href='http://localhost:7000/'
                 })
+            } else {
+                log('fail')
             }
         })
     }
@@ -120,10 +127,10 @@ const newTopicEvent = () => {
     // get the title
     bindAll('wd-topic-btn', 'click', (event) => {
         let self = event.target
-        let content = NewTopicSubmit()
-        log(content)
-        if (content !== undefined){
-            actionsSubmit(self, content)
+        let data = NewTopicSubmit()
+        log(data)
+        if (data !== undefined){
+            actionsSubmit(self, data)
         } else{
             new AlertNotice({
                 title: 'Incomplete',
@@ -133,9 +140,31 @@ const newTopicEvent = () => {
     })
 }
 
+const markdownEvent = () => {
+    let md = window.markdownit()
+    let td = new window.TurndownService({})
+    let markdown = e('.markdown-container')
+    const text = e('.text-container')
+    text.addEventListener('input', () => {
+        let val = text.innerHTML
+        let r = td.turndown(val)
+        log('r',r)
+        markdown.innerText = r
+    })
+
+    markdown.addEventListener('input', () => {
+        let val = markdown.innerText
+        let r = md.render(val)
+        text.innerHTML = r
+    })
+
+
+}
+
 const __TopicMain = () => {
+    // markdownEvent()
     newTopicEvent()
-    // let editor = new MediumEditor('.CodeMirror-code')
+    let editor = new MediumEditor('.text-container')
 }
 
 

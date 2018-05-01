@@ -69,7 +69,7 @@ router.get('/topic/new', (req, res) => {
     let args = {
         tags: tags,
     }
-    res.render('new2.html', args)
+    res.render('new.html', args)
 })
 
 router.get('/topic/:id',  loginRequired, (req, res) => {

@@ -105,11 +105,12 @@ const updateSubmit = (element, content) => {
         }
         new SettingApi().update(data)
             .then( (data) => {
-                const add = $('.text-box').find('.profile-add').get(0)
-                log('add', data,  add)
-                if (data.success && add) {
+                const add = $(content).closest('.text-box').find('.profile-add').get(0)
+                let len = content.innerText.length
+                log('add', data,  add, len)
+                if (data.success && add && len) {
                     updateIcon(content, add)
-                }
+                } 
             })
     }
 }

@@ -22,9 +22,8 @@ class Topic extends Model {
     }
 
     static create(form) {
-        const { content } = form
         let len = random()
-        form.brief = content.slice(0, len) + '...'
+        form.brief = form.brief.slice(0, len) + '...'
         let m = super.create(form)
         return m
     }

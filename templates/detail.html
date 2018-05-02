@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../static/css/topic/detail.css">
     <link rel="stylesheet" href="../static/css/index/popover.css">
     <script src="../static/lib/fontawesome-all.min.js"></script>
+    <script src="../static/lib/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/medium-editor@5.23.3/dist/css/themes/beagle.min.css">
@@ -78,6 +79,9 @@
                 </div>
             </div>
         </div>
+        <div class="to-top">
+            <span>TOP</span>
+        </div>
     </div>
 </header>
 
@@ -115,7 +119,7 @@
                     </span>
         </div>
     </div>
-    <article class="content-box">
+    <article class="content-box" data-id="{{topic._id}}">
 
         <!--<input type="file" class="title-img">-->
 
@@ -160,7 +164,7 @@
 
         <div class="comment-add clear-fix">
         <section class="input-comment-add" contenteditable="true" tabindex="1" data-topic="{{topic._id}}">
-           <span class="placeholder" style="color: #646464"><em>Add Your Comments</em></span>
+           <!--<span class="placeholder" style="color: #646464"><em>Add Your Comments</em></span>-->
         </section>
             <div class="wd-comment-btn ">
 
@@ -171,13 +175,28 @@
 
             {% for comment in comments %}
 
-            <div class="comment-item">
+            <div class="comment-item" data-id="{{comment._id}}">
                 <div class="comment-feed">
                         <span class="comment-author">
                             <a href="/user/{{comment.uid}}" class="comment-author-self">
+
+
                                 {{comment.user.nickname}}
+                                {% if comment.user._id === topic.uid %}
+                                (author)
+                                {% endif %}
                             </a>
 
+                             {% if comment.replyToAuthor !== null %}
+                            <span class="word-reply-to">reply to</span>
+
+                            <a href="/user/{{comment.replyToAuthor._id}}" class="comment-reply-to">
+                               {{comment.replyToAuthor.nickname}}
+                                {% if comment.replyToAuthor._id === topic.uid %}
+                                (author)
+                                {% endif %}
+                            </a>
+                            {% endif %}
                         </span>
 
                     <span class="comment-date">
@@ -186,18 +205,40 @@
 
                 </div>
 
-
                 <div class="comment-content">
                     {{ comment.content }}
                 </div>
 
-                <div class="comments-action">
+                <div class="comment-action clear-fix">
+                    <span class="action-reply">
+                    <i class="fas fa-reply"></i>
+                        reply
+                    </span>
+                </div>
+
+                <div class="comment-reply-wrapper clear-fix">
+                    <section class="input-comment-reply" contenteditable="true" tabindex="1" data-topic="{{topic._id}}">
+                    </section>
+                    <div class="wd-comment-btn wd-reply-cancel ">
+                        cancel
+                    </div>
+
+                    <div class="wd-comment-btn wd-reply-btn">
+
+                        submit
+                    </div>
+
 
                 </div>
 
-            </div>
+                </div>
+
 
             {% endfor %}
+
+            </div>
+
+
             <!--<div class="comment-item">-->
                 <!--<div class="comment-feed">-->
                         <!--<span class="comment-author">-->
@@ -243,6 +284,7 @@
             <!--<div class="comment-item">-->
                     <!--<div class="comment-feed">-->
                         <!--<span class="comment-author">-->
+
                             <!--<a href="#" class="comment-author-self">-->
                             <!--呵呵哒 (author)-->
                             <!--</a>-->
@@ -301,11 +343,12 @@
 
             <!--</div>-->
 
-        </div>
 
 
     </section>
 </section>
+
+
 
 
 
@@ -320,7 +363,7 @@
 <script src="/static/js/todoApi.js"></script>
 <script src="/static/js/alertAction.js"></script>
 <script src="/static/js/login.js"></script>
-<!--<script src="/static/js/top.js"></script>-->
+<script src="/static/js/top.js"></script>
 <script src="/static/js/detail.js"></script>
 
 

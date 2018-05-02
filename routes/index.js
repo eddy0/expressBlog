@@ -65,7 +65,7 @@ router.get('/topic/tag/:tag', (req, res) => {
     res.render('index.html', args)
 })
 
-router.get('/topic/new', (req, res) => {
+router.get('/topic/new', loginRequired, (req, res) => {
     let tags = Tag.all()
     let args = {
         tags: tags,
@@ -84,6 +84,7 @@ router.get('/topic/:id',  loginRequired, (req, res) => {
     })
     comments.forEach( (comment) => {
         comment.user = User.get(comment.uid)
+        comment.replyToAuthor = comment.replyTo()
     })
 
     let author = User.get(topic.uid)
@@ -101,7 +102,7 @@ router.get('/topic/:id',  loginRequired, (req, res) => {
             tags: tags,
             author: author,
             user: u,
-            comments: comments,
+            comments: comments.sort(sortBy('createdTime')),
         }
         res.render('detail.html', args)
     } else{
@@ -145,13 +146,11 @@ router.post('/signin', (req, res) => {
     let form = req.body
     log('form', form)
     let valid = User.validLogin(form)
-
-    log('valid')
     if (valid) {
         let u = User.findBy('username', form.username)
         req.session.uid = u._id
         let nextUrl = form.nextUrl || '/'
-        res.redirect(nextUrl)
+        res.status(200).redirect(nextUrl)
     } else {
         req.session.flash = {
             message: 'invalid username and password'

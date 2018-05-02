@@ -103,5 +103,20 @@
     "score": 0,
     "introduction": "this is a brief introduction on me\nwe are trying to make a html\n",
     "nickname": "sskgua"
+  },
+  {
+    "createdTime": 1525194579472,
+    "updatedTime": 1525194579472,
+    "_id": 8,
+    "activated": true,
+    "username": "eddy",
+    "email": "",
+    "password": "96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e",
+    "note": "nothing is writing",
+    "avatar": "default.png",
+    "role": 2,
+    "score": 0,
+    "introduction": "",
+    "nickname": "eddy"
   }
 ]

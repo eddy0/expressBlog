@@ -41,7 +41,6 @@ const markUpdate = (wrapper) => {
         })
 }
 
-
 const starEvent = () => {
     bindAll('action-star', 'click',  (event) => {
         let self = event.target

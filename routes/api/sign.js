@@ -43,7 +43,7 @@ router.post('/signup', (req, res) => {
     res.render('signup.html')
 })
 
-router.post('/valid', (req, res) => {
+router.post('/signup/valid', (req, res) => {
     let form = req.body
     let valid = User.findBy('username', form.username) === null
     let args = {

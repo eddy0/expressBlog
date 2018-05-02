@@ -1,4 +1,4 @@
-const { log } = require('../utils.js')
+const { log, sortBy } = require('../utils.js')
 const { formattedTime } = require('../filter.js')
 const express = require('express')
 const Topic = require('../models/topic.js')
@@ -10,8 +10,27 @@ const { currentUser, loginRequired, ajaxloginRequired
 const router = express.Router()
 
 
+router.post('/reply', (req, res) => {
+    let form = req.body
+    let u = currentUser(req)
+    form.topicId = Number(form.topicId)
+    form.uid = u._id
+    let comment = Comment.create(form)
+    comment.isAuthor = comment.isAuthor()
+    comment.replyToAuthor = comment.replyTo()
+    comment.user = u
+    comment.createdTime = formattedTime(comment.createdTime)
+    Topic.comment(u._id, form.topicId)
+    let args = {
+        success: true,
+        message: '',
+        data: comment,
+    }
+    res.json(args)
+})
+
 router.post('/add', (req, res) => {
-    let url = req.headers.referer
+    let url = req.headers.referer.split('?')[0]
     let topicId = Number(url.split('/').slice(-1)[0])
     let form = req.body
     let u = currentUser(req)

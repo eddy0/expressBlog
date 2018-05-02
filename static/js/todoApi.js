@@ -130,6 +130,14 @@ class LoginApi extends Ajax {
             data: data,
         })
     }
+
+    signUp(data) {
+        let path = '/signup/valid'
+        return this.post({
+            path: path,
+            data: data,
+        })
+    }
 }
 
 
@@ -223,38 +231,13 @@ class CommentApi extends Ajax {
         })
     }
 
-    full(id) {
-        let path = '/full/' + String(id)
-        return this.get(path)
-    }
-
-    brief(id) {
-        let path = '/brief/' + String(id)
-        return this.get(path)
-    }
-
-    star(id, status) {
-        let path = '/star'
-        let data = {
-            starred: status,
-            id: id,
-        }
+    reply(data) {
+        let path = '/reply'
         return this.post({
             path: path,
             data: data,
         })
     }
 
-    mark(id, status) {
-        let path = '/mark'
-        let data = {
-            marked: status,
-            id: id,
-        }
-        return this.post({
-            path: path,
-            data: data,
-        })
-    }
 }
 

@@ -110,16 +110,16 @@
             <nav>
                 <ul class="menu">
                     <li class="menu-item active">
-                        <a href="#topic">
+                        <a href="topic">
                         Topic
                         </a>
                     </li>
-                    <li class="menu-item"><a href="#Comment">Comment</a></li>
+                    <li class="menu-item"><a href="comment">Comment</a></li>
 
                     <li class="menu-item">
-                        <a href="#bookmark">Bookmark</a>
+                        <a href="bookmark">Bookmark</a>
                     </li>
-                    <li class="menu-item"><a href="#star">Star</a></li>
+                    <li class="menu-item"><a href="star">Star</a></li>
 
                 </ul>
             </nav>
@@ -151,35 +151,6 @@
                 {% endfor %}
 
 
-                {% for t in topics %}
-                <div class="content-item">
-                    <span class="content-author">
-                        <a href="/user/{{t.author._id}}" class="author-avatar" title="{{t.author.nickname}}" style="display: inline-block">
-                        <img src="/user/avatar/{{t.author.avatar}}" alt="" title="{{t.author.nickname}}" />
-                    </a>
-                    </span>
-                    <span class="content-title">
-                         <a href="/topic/{{t._id}}"  style="display: inline-block">
-                        <span>{{ t.title }}</span>
-                        </a>
-                    </span>
-
-                    <span class="content-info">
-                        <span class="content-comments" title="comments">23333{{ t.comments }}</span>
-                        <span class="content-views" title="views">233{{ t.views }}</span>
-                    </span>
-
-                    <span class="content-date">
-                       {{ t.createdTime | formattedTime() }}
-                    </span>
-
-                </div>
-
-                {% endfor %}
-
-
-            </article>
-        </div>
         <!--<div class="profile-side" style="float: right"></div>-->
 
 

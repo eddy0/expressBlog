@@ -115,7 +115,7 @@ const uniqueUsername = () => {
             let form = {
                 username: input.value
             }
-            return new Ajax().post('/api/valid', form)
+            new LoginApi().signUp(form)
                 .then( (data) =>{
                     let span = e('.wd-username-exist')
                     let msg =  data.message
@@ -128,7 +128,6 @@ const uniqueUsername = () => {
                 })
         }
     })
-
 }
 
 const SubmitEvent = () => {

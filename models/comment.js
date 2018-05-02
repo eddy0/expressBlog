@@ -10,6 +10,7 @@ class Comment extends Model {
         this.topicId = form.topicId || -1
         this.uid = form.uid || -1
         this.stars = form.stars || 0
+        this.replyToId = form.replyToId || undefined
     }
 
     isAuthor() {
@@ -21,6 +22,18 @@ class Comment extends Model {
             return true
         } else {
             return false
+        }
+    }
+
+    replyTo() {
+        const User = require('./user.js')
+        if (this.replyToId === undefined) {
+            return null
+        } else {
+            const comment = Comment.get(this.replyToId)
+            let uid = comment.uid
+            let u = User.get(uid)
+            return u
         }
     }
 

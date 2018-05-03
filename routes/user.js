@@ -1,4 +1,4 @@
-const { log } = require('../utils.js')
+const { log, sortBy } = require('../utils.js')
 const express = require('express')
 const path = require('path')
 const multer = require('multer')
@@ -86,7 +86,7 @@ router.get('/:uid/topic', loginRequired, (req, res) => {
             return topic.uid === user._id
         })
         let  args = {
-            topics: topics,
+            topics: topics.sort(sortBy('createdTime')),
             filteredUser: filteredUser,
             user: u,
         }
@@ -120,7 +120,7 @@ router.get('/:uid/comment', loginRequired, (req, res) => {
         })
 
         let  args = {
-            comments: comments,
+            comments: comments.sort(sortBy('createdTime')),
             filteredUser: filteredUser,
             user: u,
         }
@@ -150,7 +150,7 @@ router.get('/:uid/bookmark', loginRequired, (req, res) => {
             return topic.marked.includes(user._id)
         })
         let  args = {
-            topics: topics,
+            topics: topics.sort(sortBy('createdTime')),
             filteredUser: filteredUser,
             user: u,
         }
@@ -180,7 +180,7 @@ router.get('/:uid/star', loginRequired, (req, res) => {
             return topic.starred.includes(user._id)
         })
         let  args = {
-            topics: topics,
+            topics: topics.sort(sortBy('createdTime')),
             filteredUser: filteredUser,
             user: u,
         }

@@ -116,7 +116,6 @@ class TodoApi extends Ajax {
     }
 }
 
-
 class LoginApi extends Ajax {
     constructor() {
         super()
@@ -139,8 +138,6 @@ class LoginApi extends Ajax {
         })
     }
 }
-
-
 
 class TopicApi extends Ajax {
     constructor() {
@@ -216,7 +213,6 @@ class SettingApi extends Ajax {
     }
 }
 
-
 class CommentApi extends Ajax {
     constructor() {
         super()
@@ -239,5 +235,16 @@ class CommentApi extends Ajax {
         })
     }
 
+}
+
+class UserAjax extends Ajax {
+    constructor() {
+        super()
+        this.baseUrl = this.baseUrl + '/api'
+    }
+
+    fetch(path) {
+        return this.get(path)
+    }
 }
 

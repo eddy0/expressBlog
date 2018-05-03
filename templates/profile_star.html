@@ -110,16 +110,16 @@
             <nav>
                 <ul class="menu">
                     <li class="menu-item ">
-                        <a href="topic">
+                        <a href="topic" data-page="topic">
                             Topic
                         </a>
                     </li>
-                    <li class="menu-item"><a href="comment">Comment</a></li>
+                    <li class="menu-item"><a href="comment" data-page="comment">Comment</a></li>
 
-                    <li class="menu-item ">
-                        <a href="bookmark">Bookmark</a>
+                    <li class="menu-item">
+                        <a href="bookmark" data-page="bookmark">Bookmark</a>
                     </li>
-                    <li class="menu-item active"><a href="star">Star</a></li>
+                    <li class="menu-item active"><a href="star" data-page="star">Star</a></li>
 
                 </ul>
             </nav>
@@ -143,7 +143,7 @@
                     </span>
 
                     <span class="content-date">
-                       {{ t.createdTime | formattedTime() }}
+                       {{ t.createdTime | localeDate() }}
                     </span>
 
                 </div>

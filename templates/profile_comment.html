@@ -109,17 +109,17 @@
         <div class="profile-main" style="float: left">
             <nav>
                 <ul class="menu">
-                    <li class="menu-item ">
-                        <a href="topic">
+                    <li class="menu-item">
+                        <a href="topic" data-page="topic">
                             Topic
                         </a>
                     </li>
-                    <li class="menu-item active"><a href="comment">Comment</a></li>
+                    <li class="menu-item active"><a href="comment" data-page="comment">Comment</a></li>
 
                     <li class="menu-item">
-                        <a href="bookmark">Bookmark</a>
+                        <a href="bookmark" data-page="bookmark">Bookmark</a>
                     </li>
-                    <li class="menu-item"><a href="star">Star</a></li>
+                    <li class="menu-item"><a href="star" data-page="star">Star</a></li>
 
                 </ul>
             </nav>
@@ -131,17 +131,21 @@
                         <img src="/user/avatar/{{t.author.avatar}}" alt="" title="{{t.author.nickname}}"/>
                     </a>
                     </span>
-                    <span class="content-title">
-                         <span class="content-comment" style="color: #333;font-weight: 500; font-size: 15px; margin-right: 30px; display: inline-block; min-width: 300px">
-                             <span>content:</span>
-                        <span style="display: inline-block; min-width: 300px">{{ t.content }}</span>
 
-                        <span style="margin-right: 30px; font-weight: 500">reply to Tile:</span>
- </span>
-                         <a href="/topic/{{t.topic._id}}"  style="display: inline-block">
-                        <span>{{ t.topic.title }}</span>
-                        </a>
-                    </span>
+                    <div class="comment-item">
+
+                            <div class="content-comment">
+                                {{ t.content }}
+                            </div>
+                             <div class="comment-to-title">
+                                 <span style="font-size: 14px; color: #999; margin-right: 10px; vertical-align: top">reply to topic:</span>
+                                 <a href="/topic/{{t.topic._id}}" >
+                                     <span>{{ t.topic.title }}
+                                   </span>
+                                 </a>
+                             </div>
+
+                    </div>
 
 
 
@@ -151,7 +155,7 @@
                     </span>
 
                     <span class="content-date">
-                       {{ t.createdTime | formattedTime() }}
+                       {{ t.createdTime | localeDate() }}
                     </span>
 
                 </div>

@@ -28,6 +28,12 @@ const configTemplate = () => {
         let f = calendarDate(date)
         return f
     })
+
+    env.addFilter('localeDate', (date) => {
+        let { localeDate } = require('./filter.js')
+        let f = localeDate(date)
+        return f
+    })
 }
 
 const registerRouter = () => {

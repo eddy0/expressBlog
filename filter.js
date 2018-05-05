@@ -53,7 +53,7 @@ const calendarDate = (time) => {
 const localeDate = (time) => {
     let date = new Date(time)
     let options = {
-        year: '2-digit',
+        year: '2-dig it',
         month:'2-digit',
         day: '2-digit',
         hour: '2-digit',

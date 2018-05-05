@@ -62,7 +62,11 @@
                     </span>
     </div>
     <div class="wd-login-btns">
-        <input  name="nextUrl" type="text" value="{{ nextUrl}}" hidden style="display: none">
+        {% if (flash | length ) > 0 %}
+        <input  name="nextUrl" type="text" value="{{ flash.nextUrl }}" hidden style="display: none">
+        {% else %}
+        <input  name="nextUrl" type="text" value="{{ nextUrl }}" hidden style="display: none">
+        {% endif %}
         <button type="submit" class="wd-login-btn wd-login-submit">
             Sign In
         </button>
@@ -77,7 +81,7 @@
 
     </div>
 </div>
-<script src="wd.js"></script>
+<!--<script src="wd.js"></script>-->
 <script src="/static/js/wd.js"></script>
 
 

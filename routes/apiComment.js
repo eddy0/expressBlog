@@ -16,6 +16,7 @@ router.post('/reply', (req, res) => {
     form.topicId = Number(form.topicId)
     form.uid = u._id
     let comment = Comment.create(form)
+    log('form', comment)
     comment.isAuthor = comment.isAuthor()
     comment.replyToAuthor = comment.replyTo()
     comment.user = u

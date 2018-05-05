@@ -9,6 +9,7 @@ const { currentUser, loginRequired } = require('./main.js')
 const router = express.Router()
 
 router.get('/', (req, res) => {
+
     let u = currentUser(req)
     let topics = Topic.all()
     topics = topics.map( (topic) => {
@@ -146,6 +147,7 @@ router.post('/signin', (req, res) => {
     let form = req.body
     log('form', form)
     let valid = User.validLogin(form)
+    log('valid', valid)
     if (valid) {
         let u = User.findBy('username', form.username)
         req.session.uid = u._id
@@ -153,13 +155,10 @@ router.post('/signin', (req, res) => {
         res.status(200).redirect(nextUrl)
     } else {
         req.session.flash = {
-            message: 'invalid username and password'
+            message: 'invalid username and password',
+            nextUrl:nextUrl = form.nextUrl || '/'
         }
-        let nextUrl = req.query.nextUrl || '/signin'
-
-        res.redirect('/signin', {
-            nextUrl: nextUrl
-        })
+        res.redirect('/signin')
     }
 })
 

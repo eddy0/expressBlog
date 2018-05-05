@@ -28,7 +28,7 @@ class Comment extends Model {
     replyTo() {
         const User = require('./user.js')
         if (this.replyToId === undefined) {
-            return null
+            return User.guest()
         } else {
             const comment = Comment.get(this.replyToId)
             let uid = comment.uid

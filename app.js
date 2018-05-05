@@ -1,6 +1,8 @@
 const { log } = require('./utils.js')
 
 const express = require('express')
+const http = require('http')
+const socket = require('socket.io')
 const bodyParser = require('body-parser')
 const session = require('cookie-session')
 const nunjucks = require('nunjucks')
@@ -46,6 +48,9 @@ const registerRouter = () => {
     const user = require('./routes/user.js')
     app.use('/user', user)
 
+    const chat = require('./routes/chat.js')
+    app.use('/chat', chat)
+
     const apiSign = require('./routes/api/sign.js')
     app.use('/api/', apiSign)
 
@@ -86,17 +91,51 @@ const configApp = () => {
     registerRouter()
 }
 
+
+// const run = (port=3000, host) => {
+//     const server = app.listen(port, host, () => {
+//         const address = server.address()
+//         log('app listening', `http://localhost:${address.port}`)
+//     })
+// }
+
+
+const configIO = (server) => {
+    io = require('socket.io').listen(server)
+
+    app.use( (req, res, next) => {
+        req.io = io
+        next()
+    })
+
+    io.on('connection', function (socket) {
+        socket.on('chat message', function(msg){
+            console.log('message: ' + msg);
+            io.emit('message', msg);
+        })
+    })
+
+    io.on('connection', function(socket){
+        socket.broadcast.emit('hi', '')
+    })
+
+}
+
 const run = (port=3000, host) => {
     const server = app.listen(port, host, () => {
         const address = server.address()
         log('app listening', `http://localhost:${address.port}`)
     })
+    return server
+
 }
+
 
 
 if (require.main === module){
     configApp()
     let host = '0.0.0.0'
     let port = 7000
-    run(port, host )
+    let server = run(port, host )
+    configIO(server)
 }

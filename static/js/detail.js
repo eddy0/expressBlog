@@ -57,7 +57,7 @@ const renderReplyTemplate = (data) => {
     let replyto = ''
     let authorId = Number($('.author-avatar').attr('href').split('/').slice(-1)[0])
     let replyToAuthor = data.replyToAuthor
-    if (replyToAuthor._id === authorId) {
+    if (replyToAuthor !== null && replyToAuthor._id === authorId) {
         replyto = `(author)`
     }
         
@@ -140,6 +140,7 @@ const replySubmit = (wrapper) => {
             new CommentApi().reply(data)
                 .then( (data) => {
                     if (data.success) {
+                        log('reply data', data)
                         renderReply(data.data)
                         let replyWrapper = wrapper.closest('.comment-reply-wrapper')
                         $(replyWrapper).hide(100)
@@ -204,8 +205,9 @@ const generalCommentTemplate = (data) => {
     if (data.isAuthor) {
         author = `(author)`
     }
+    log(data)
     let t = `
-       <div class="comment-item">
+       <div class="comment-item" data-id="${data._id}">
                 <div class="comment-feed">
                         <span class="comment-author">
                             <a href="/user/${data.user._id}" class="comment-author-self">
@@ -232,7 +234,7 @@ const generalCommentTemplate = (data) => {
                     </span>
                 </div>
                 <div class="comment-reply-wrapper clear-fix">
-                    <section class="input-comment-reply" contenteditable="true" tabindex="1" data-topic="{{topic._id}}">
+                    <section class="input-comment-reply" contenteditable="true" tabindex="1" data-topic="${data.topicId}">
                     </section>
                     <div class="wd-comment-btn wd-reply-cancel ">
                         cancel
@@ -253,12 +255,7 @@ const generalCommentTemplate = (data) => {
 
 const updateCommentBody = (data) => {
     let box = e('.comment-list')
-    let t
-    if (data.isAuthor) {
-
-    } else {
-        t = generalCommentTemplate(data)
-    }
+    let t = generalCommentTemplate(data)
     box.insertAdjacentHTML('afterbegin', t)
 
 }
@@ -275,7 +272,6 @@ const commentSubmit = () => {
     button.addEventListener('click', ()=> {
         if (button.classList.contains('wd-comment-submit')) {
             let data = topicCommentData()
-            log(data)
             new CommentApi().add(data)
                 .then( (data) => {
                     if (data.success) {

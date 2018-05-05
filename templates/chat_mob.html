@@ -259,6 +259,8 @@
         const templateFriend = (data) => {
             let t = `
                 <div class="content-friend">
+                <span style="margin: 5px"> ${data.user.username} </span>
+              
                 <img src="/user/avatar/${data.user.avatar}" alt="" class="friend-avatar">
                 <span class="content-detail">${data.msg}</span>
             </div>
@@ -269,6 +271,7 @@
         const templateSelf = (data) => {
             let t = `
                 <div class="content-self">
+                 <span style="margin: 5px"> ${data.user.username} </span>
             <img src="/user/avatar/${data.user.avatar}" alt="" class="self-avatar">
             <span class="content-detail">${data.msg}</span>
         </div>

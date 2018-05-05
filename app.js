@@ -48,9 +48,6 @@ const registerRouter = () => {
     const user = require('./routes/user.js')
     app.use('/user', user)
 
-    const chat = require('./routes/chat.js')
-    app.use('/chat', chat)
-
     const apiSign = require('./routes/api/sign.js')
     app.use('/api/', apiSign)
 
@@ -101,23 +98,28 @@ const configApp = () => {
 
 
 const configIO = (server) => {
-    io = require('socket.io').listen(server)
+    let io = require('socket.io').listen(server)
 
     app.use( (req, res, next) => {
         req.io = io
         next()
     })
 
-    io.on('connection', function (socket) {
-        socket.on('chat message', function(msg){
-            console.log('message: ' + msg);
-            io.emit('message', msg);
-        })
-    })
+    // io.on('connection', function (socket) {
+    //     socket.on('chat message', function(msg){
+    //         io.emit('message', msg);
+    //     })
+    // })
 
-    io.on('connection', function(socket){
-        socket.broadcast.emit('hi', '')
-    })
+    const chat = require('./routes/chat.js')
+    app.use('/chat', chat)
+
+
+
+    //
+    // io.on('connection', function(socket){
+    //     socket.broadcast.emit('hi', '')
+    // })
 
 }
 

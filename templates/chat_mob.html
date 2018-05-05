@@ -42,9 +42,11 @@
 
 
         .chat-container{
-            margin: 50px auto;
             background-color: #f2f2f7;
-            width: 300px;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .chat-header{
@@ -75,7 +77,8 @@
 
         .chat-body{
             padding: 10px;
-            height: 400px;
+            flex: 1;
+
             overflow: auto;
         }
 
@@ -124,7 +127,7 @@
         }
 
         .btn-chat-send{
-            background-color: rgb(215,215,223);
+            background-color: #006dcc;
             color: #fff;
             border-radius: 5px;
             line-height: 18px;
@@ -158,7 +161,6 @@
             background-color: lightblue;
             color: #006dcc;
         }
-
 
 
     </style>

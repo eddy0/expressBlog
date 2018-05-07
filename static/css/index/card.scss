@@ -173,6 +173,8 @@ $blue: rgb(43, 120, 193);
   transition: all 0.3s;
 
   .content-title {
+    word-break: break-all;
+    word-wrap: break-word;
     display: inline-block;
     font-size: 18px;
     font-weight: 600;

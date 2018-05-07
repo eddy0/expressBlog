@@ -269,6 +269,9 @@ header .header-login{
   .main > .main-container {
     width: 650px !important;
   }
+  & .blog-main {
+    margin-right: 0 !important;
+  }
   .wd-card .card-action > span + span{
     margin-left: 0 !important;
   }
@@ -330,6 +333,7 @@ header .header-login{
     padding: 8px;
     display: flex;
     flex-direction: row;
+    box-sizing: border-box;
   }
 
   & .blog-main {

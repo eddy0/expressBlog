@@ -105,11 +105,24 @@ const configIO = (server) => {
         next()
     })
 
-    // io.on('connection', function (socket) {
-    //     socket.on('chat message', function(msg){
-    //         io.emit('message', msg);
-    //     })
-    // })
+    io.on('connection', function(socket){
+        let clients = Object.keys(io.sockets.sockets)
+        console.log(clients.length, " clients are connected");
+        console.log(socket.id)
+        socket.on('disconnect', function(){
+            console.log(Object.keys(io.sockets.sockets) + " clients disconnected");
+            console.log(socket.id)
+            let socketId = socket.id
+            let Chat = require('./models/chat')
+            let u = Chat.findBy('socketId', socketId)
+            log('u', u)
+            if (u !== null) {
+                let id = u.uid
+                socket.broadcast.emit('delete', id)
+            }
+        })
+    })
+
 
     const chat = require('./routes/chat.js')
     app.use('/chat', chat)

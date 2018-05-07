@@ -198,7 +198,7 @@ const ToggleUserInfo = () => {
     let wrapper = e('.header-info')
     const popover = e('.header-popover', wrapper)
     popover.classList.add('show-user')
-    log('popover', popover)
+    // log('popover', popover)
     popover.focus()
     popover.addEventListener('focusout', (event) => {
         setTimeout( () => {
@@ -226,7 +226,6 @@ const loginEvent = () => {
     container.addEventListener('click', (event) => {
         const self = event.target
         let action = self.dataset.action
-        log('action',action)
         if (action === undefined){
             action = actionFromPopover(self)
         }

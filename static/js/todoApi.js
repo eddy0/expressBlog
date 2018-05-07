@@ -21,6 +21,7 @@ class Ajax {
     ajaxImg({ path, data}) {
         let method = 'POST'
         let url = this.baseUrl + path
+
         let promise = new Promise((resolve, reject) => {
             const r = new XMLHttpRequest()
             r.open(method, url, true)
@@ -245,6 +246,21 @@ class UserAjax extends Ajax {
 
     fetch(path) {
         return this.get(path)
+    }
+}
+
+class ChatAjax extends Ajax {
+    constructor() {
+        super()
+        this.baseUrl = this.baseUrl + '/chat/api'
+    }
+
+    add(data) {
+        let path = '/add'
+        return this.post({
+            path: path,
+            data: data
+        })
     }
 }
 

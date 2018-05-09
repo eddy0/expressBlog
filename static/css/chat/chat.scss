@@ -219,8 +219,8 @@ header .header-title{
     justify-content: center;
     margin-top: 50px;
 
-    @media screen and (max-width: 360px) {
-        margin-top: 0px;
+    @media screen and (max-width: 560px) {
+        margin-top: 0;
     }
 }
 #frame {
@@ -556,6 +556,7 @@ header .header-title{
             height: calc(100% - 177px);
             overflow-y: scroll;
             overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
             @media screen and (max-width: $break) {
                 height: calc(100% - 149px);
                 overflow-y: scroll;

@@ -140,9 +140,9 @@ header .header-title {
   align-items: center;
   justify-content: center;
   margin-top: 50px; }
-  @media screen and (max-width: 360px) {
+  @media screen and (max-width: 560px) {
     .main {
-      margin-top: 0px; } }
+      margin-top: 0; } }
 
 #frame {
   width: 95%;
@@ -378,7 +378,8 @@ header .header-title {
     #frame #sidepanel #contacts {
       height: calc(100% - 177px);
       overflow-y: scroll;
-      overflow-x: hidden; }
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch; }
       @media screen and (max-width: 735px) {
         #frame #sidepanel #contacts {
           height: calc(100% - 149px);

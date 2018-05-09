@@ -48,6 +48,9 @@ const registerRouter = () => {
     const user = require('./routes/user.js')
     app.use('/user', user)
 
+    const todo = require('./routes/todo.js')
+    app.use('/todo', todo)
+
     const apiSign = require('./routes/api/sign.js')
     app.use('/api/', apiSign)
 

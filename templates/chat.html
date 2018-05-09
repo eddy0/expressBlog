@@ -192,7 +192,10 @@
 <script src="/static/js/chat.js"></script>
 
 <script>
-    $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+    // window.scrollBy($('.messages')[0].scrollHeight, $('.messages')[0].scrollHeight )
+    $(".messages").animate({ scrollTop: $('.messages')[0].scrollHeight }, );
+
+
 
     $("#profile-img").click(function() {
         $("#status-options").toggleClass("active");

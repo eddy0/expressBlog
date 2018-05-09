@@ -65,6 +65,8 @@ const socketEvent = () => {
     }
 
     const newTemplate = (data) => {
+        log('data', data, data.user)
+
         const t = `
                 <li class="contact" data-id="${data.user._id}" data-socket=''>
                     <div class="wrap">
@@ -86,22 +88,21 @@ const socketEvent = () => {
         wrapper.append(t)
     }
 
-    socket.on('new', function(data){
-        let t
-        let wrapper = $('.contacts-list')
-        log(data)
-        t =  newTemplate(data)
-        wrapper.append(t)
-    })
-
-    socket.on('delete', function(id){
-        let wrapper = $('.contacts-list')
-        let item = wrapper.find(li).find(`[data-id=${id}]`)
-        console.log('item', item)
-
-
-
-    })
+    // socket.on('new', function(data){
+    //     let t
+    //     let wrapper = $('.contacts-list')
+    //     t =  newTemplate(data)
+    //     wrapper.append(t)
+    // })
+    //
+    // socket.on('delete', function(id){
+    //     let wrapper = $('.contacts-list')
+    //     let item = wrapper.find('li').find(`[data-id=${id}]`)
+    //     console.log('item', item)
+    //
+    //
+    //
+    // })
 
 
     socket.on('message', function(data){
@@ -117,6 +118,8 @@ const socketEvent = () => {
             t = templateSelf(data)
         }
         wrapper.append(t)
+        $(".messages").animate({ scrollTop: $('.messages')[0].scrollHeight }, "smooth");
+
     })
 
 
